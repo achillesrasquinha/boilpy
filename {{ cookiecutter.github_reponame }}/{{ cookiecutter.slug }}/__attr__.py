@@ -1,0 +1,8 @@
+__name__                    = "{{ cookiecutter.name.lower().replace(' ', '-') }}"
+__version__                 = "{{ cookiecutter.version }}"
+__author__                  = "{{ cookiecutter.author  }}"
+__email__                   = "{{ cookiecutter.email   }}"
+__description__             = "{{ cookiecutter.description }}"
+__keywords__                = "{{ cookiecutter.keywords.split(" ") }}"
+__url__                     = "{{ cookiecutter.url     }}"
+__license__                 = "{{ cookiecutter.license }}"

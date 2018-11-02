@@ -1,0 +1,14 @@
+{
+           "name": "package",
+        "version": "0.1.0",
+           "slug": "{{ cookiecutter.name.lower().replace('-', '_').replace(' ', '_') }}",
+        "command": "{{ cookiecutter.name.lower().replace(' ', '-') }}",
+    "description": "",
+         "author": "",
+          "email": "",
+       "keywords": "",
+            "url": "",
+        "license": ["MIT License", "Apache License 2.0", "GNU General Public License v3.0"],
+    "github_username": "",
+    "github_reponame": ""
+}

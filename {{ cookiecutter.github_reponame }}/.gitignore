@@ -1,0 +1,22 @@
+# Virtual Environments
+.venv
+
+# Environment Files
+.env
+
+# cache
+__pycache__
+*.pyc
+*.egg-info
+.pytest_cache
+.coverage
+.coverage.*
+htmlcov
+.tox
+
+# build
+build
+dist
+
+# misc
+.DS_Store
