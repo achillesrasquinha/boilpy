@@ -80,8 +80,9 @@ foo@bar:~$ make shell
 ...and then simply import your package as follows:
 
 ```python
-In [1]: import foobar
-"Hello, World"
+In [1]: import foobar as fb
+In [2]: fb.__name__
+Out[2]: 'foobar'
 ```
 
 ### License
