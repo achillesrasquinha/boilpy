@@ -69,7 +69,7 @@ foo@bar:~$ make
 
 #### 3. Prototyping
 
-To check if your package, launch the shell:
+To check if your package works, launch the shell:
 
 ```console
 foo@bar:~$ make shell
