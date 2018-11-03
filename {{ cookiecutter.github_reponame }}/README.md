@@ -31,8 +31,8 @@
 $ pip install {{ cookiecutter.name.lower().replace(' ', '-') }}
 ```
 
-### Usage
+#### Usage
 
-### License
+#### License
 
 This repository has been released under the [{{ cookiecutter.license }}](LICENSE).
