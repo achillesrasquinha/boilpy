@@ -18,27 +18,35 @@
 </p>
 
 <div align="justify">
-	<b>boilpy</b> is a carefully crafted Python Package Template that is designed to ease your development, testing and deployment workflow. It heavily emphasizes on <a href="https://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">convention over configuration</a> so you can focus on getting straight down to building and distributing your next python package.
+	<b>boilpy</b> is a carefully crafted Python Package Template that is designed to ease your development, testing and deployment workflow. It heavily emphasizes on <a href="https://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">convention over configuration</a> so you can focus on getting straight down to building and distributing your very next python package.
 </div>
 
 ### Contents
 
+* [Features](#features)
 * [Quick Start](#quick-start)
 * [Usage](#usage)
 * [Documentation](docs)
 * [License](#license)
 
+### Features
+
+* Configurable package creation with "sensible defaults".
+* "Open Source First" package creation with pre-configured CI-CD.
+* Industry Standard tooling capabilities.
+* Python 2.7+, Python 3.4+ and PyPy aware boilerplate.
+
 ### Quick Start
 
 <div align="center">
-	<pre><a href="#">pip</a> install -q cookiecutter && <a href="#">cookiecutter</a> https://github.com/achillesrasquinha/boilpy</pre>
+	<pre><a href="https://github.com/pypa/pip" target="_blank">pip</a> install -q cookiecutter && <a href="https://github.com/audreyr/cookiecutter" target="_blank">cookiecutter</a> https://github.com/achillesrasquinha/boilpy</pre>
 </div>
 
 For an exhaustive installation guide, you can visit the Documentation [here](docs/installation.md).
 
 ### Usage
 
-**boilpy** provides you a production-ready template out of the box! For most tasks, **boilpy** consists of a well-defined `Makefile` which can be used to run `make` commands within your project directory. 
+**boilpy** provides you a production-ready template out of the box! For most tasks, **boilpy** consists of a well-defined `Makefile` which can be used to run `make` commands within your project directory.
 
 In order to get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory in order to configure some of the environment variables declared within the `Makefile`. You can override the environment variables defined [here](docs/index.md#environment-variables). To override some of the environment variables, you could also declare them at run-time as follows:
 
