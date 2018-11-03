@@ -38,7 +38,9 @@ For an exhaustive installation guide, you can visit the Documentation [here](doc
 
 ### Usage
 
-**boilpy** provides you a production-ready template out of the box! In order to get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory in order to configure some of the environment variables declared within the `Makefile`. You can override the environment variables defined [here](docs/index.md#environment-variables). To override some of the environment variables, you could also declare them at run-time as follows:
+**boilpy** provides you a production-ready template out of the box! For most tasks, **boilpy** consists of a well-defined `Makefile` which can be used to run `make` commands within your project directory. 
+
+In order to get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory in order to configure some of the environment variables declared within the `Makefile`. You can override the environment variables defined [here](docs/index.md#environment-variables). To override some of the environment variables, you could also declare them at run-time as follows:
 
 ```console
 foo@bar:~$ FOO=BAR BAR=BAZ make [command]
