@@ -29,14 +29,14 @@
 
 To install [**boilpy**](https://git.io/boilpy), you must first install [`cookiecutter`](https://github.com/audreyr/cookiecutter) as follows:
 
-```shell
-$ pip install cookiecutter
+```console
+foo@bar:~$ pip install cookiecutter
 ```
 
 You can then use `cookiecutter` to fetch and setup **boilpy** as follows:
 
-```shell
-$ cookiecutter https://github.com/achillesrasquinha/boilpy
+```console
+foo@bar:~$ cookiecutter https://github.com/achillesrasquinha/boilpy
 ```
 
 #### Usage
@@ -47,29 +47,29 @@ $ cookiecutter https://github.com/achillesrasquinha/boilpy
 
 Go ahead and create an isolated virtual environment for your package.
 
-```shell
-$ make env
+```console
+foo@bar:~$ make env
 ```
 
 ##### Installation
 
 Then, simply install your package as follows:
 
-```shell
-$ make # or "make install"
+```console
+foo@bar:~$ make # or "make install"
 ```
 
 ##### Testing
 
 To test your package, launch the shell as follows:
 
-```shell
-$ make shell
+```console
+foo@bar:~$ make shell
 ```
 
 ...and then simply import your package as follows:
 
-```ipython
+```python
 In [1]: import foobar
 "Hello, World"
 ```
