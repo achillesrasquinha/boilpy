@@ -28,7 +28,7 @@
 * [Documentation](docs)
 * [License](#license)
 
-#### Quick Start
+### Quick Start
 
 <div align="center">
 	<pre><a href="#">pip</a> install -q cookiecutter && <a href="#">cookiecutter</a> https://github.com/achillesrasquinha/boilpy</pre>
@@ -36,22 +36,26 @@
 
 For an exhaustive installation guide, you can visit the Documentation [here](docs/installation.md).
 
-#### Usage
+### Usage
 
-**boilpy** provides you a production-ready template out-of-the-box! To get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory to override environment variables declared within the Makefile. You can override the environment variables defined [here](docs/index.md#environment-variables).
+**boilpy** provides you a production-ready template out of the box! In order to get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory in order to configure some of the environment variables declared within the `Makefile`. You can override the environment variables defined [here](docs/index.md#environment-variables). To override some of the environment variables, you could also declare them at run-time as follows:
 
-##### Configuration
+```console
+foo@bar:~$ FOO=BAR BAR=BAZ make [command]
+```
 
-Go ahead and create an isolated virtual environment for your package.
+#### 1. Configuration
+
+First, create an isolated virtual environment for your package using `virtualenv`:
 
 ```console
 foo@bar:~$ make env
 → [20:37:10] Creating a Virtual Environment .venv with Python - /usr/bin/python
 ```
 
-##### Installation
+#### 2. Installation
 
-Then, simply install your package as follows:
+Simply install your package as follows:
 
 ```console
 foo@bar:~$ make
@@ -63,9 +67,9 @@ foo@bar:~$ make
 → [20:38:23] Installation Successful
 ```
 
-##### Testing
+#### 3. Prototyping
 
-To test your package, launch the shell as follows:
+To check if your package, launch the shell:
 
 ```console
 foo@bar:~$ make shell
@@ -78,6 +82,6 @@ In [1]: import foobar
 "Hello, World"
 ```
 
-#### License
+### License
 
 This repository has been released under the [MIT License](LICENSE).
