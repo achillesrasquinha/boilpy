@@ -51,7 +51,7 @@ For an exhaustive installation guide, you can visit the Documentation [here](doc
 In order to get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory in order to configure some of the environment variables declared within the `Makefile`. You can override the environment variables defined [here](docs/index.md#environment-variables). To override some of the environment variables, you could also declare them at run-time as follows:
 
 ```console
-foo@bar:~$ FOO=BAR BAR=BAZ make [command]
+foo@bar:~/foobar$ FOO=BAR BAR=BAZ make [command]
 ```
 
 #### 1. Configuration
@@ -59,7 +59,7 @@ foo@bar:~$ FOO=BAR BAR=BAZ make [command]
 First, create an isolated virtual environment for your package using `virtualenv`:
 
 ```console
-foo@bar:~$ make env
+foo@bar:~/foobar$ make env
 → [20:37:10] Creating a Virtual Environment .venv with Python - /usr/bin/python
 ```
 
@@ -68,7 +68,7 @@ foo@bar:~$ make env
 Simply install your package as follows:
 
 ```console
-foo@bar:~$ make
+foo@bar:~/foobar$ make
 → [20:38:23] Cleaning Python Cache
 → [20:38:23] Cleaning Successful
 → [20:38:23] Building Requirements
@@ -82,7 +82,7 @@ foo@bar:~$ make
 To check if your package works, launch the shell:
 
 ```console
-foo@bar:~$ make shell
+foo@bar:~/foobar$ make shell
 ```
 
 ...and then simply import your package as follows:
