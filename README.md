@@ -49,7 +49,7 @@ Go ahead and create an isolated virtual environment for your package.
 
 ```console
 foo@bar:~$ make env
-→ [<TIMESTAMP>] Creating a Virtual Environment .venv with Python - /usr/bin/python
+→ [20:37:10] Creating a Virtual Environment .venv with Python - /usr/bin/python
 ```
 
 ##### Installation
