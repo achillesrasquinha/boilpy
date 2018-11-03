@@ -1,3 +1,4 @@
+<!-- HEADER -->
 <div align="center">
     <img src=".github/assets/logo.png" height="128"> 
     <h1>
@@ -6,6 +7,7 @@
     <h4>The Best Python Package Template in the Universe</h4>
 </div>
 
+<!-- BADGES -->
 <p align="center">
 	<a href="https://saythanks.io/to/achillesrasquinha">
 		<img src="https://img.shields.io/badge/Say%20Thanks-🦉-1EAEDB.svg?style=flat-square">
@@ -16,28 +18,23 @@
 </p>
 
 <div align="justify">
-	<b>boilpy</b> is a carefully crafted Python Package Template that eases development, testing and production workflow. It heavily emphasizes on <a href="https://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">convention over configuration</a> so you can focus on getting straight down to building and distributing your python package.
+	<b>boilpy</b> is a carefully crafted Python Package Template that is designed to ease your development, testing and deployment workflow. It heavily emphasizes on <a href="https://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">convention over configuration</a> so you can focus on getting straight down to building and distributing your next python package.
 </div>
 
 ### Contents
 
-* [Installation](#installation)
+* [Quick Start](#quick-start)
 * [Usage](#usage)
+* [Documentation](docs)
 * [License](#license)
 
-#### Installation
+#### Quick Start
 
-To install [**boilpy**](https://git.io/boilpy), you must first install [`cookiecutter`](https://github.com/audreyr/cookiecutter) as follows:
+<div align="center">
+	<pre><span style="color: green">pip</span> install -q cookiecutter && <span style="color: green">cookiecutter</span> https://github.com/achillesrasquinha/boilpy</pre>
+</div>
 
-```console
-foo@bar:~$ pip install cookiecutter
-```
-
-You can then use `cookiecutter` to fetch and setup **boilpy** as follows:
-
-```console
-foo@bar:~$ cookiecutter https://github.com/achillesrasquinha/boilpy
-```
+For an exhaustive installation guide, you can visit the Documentation [here](docs/installation.md).
 
 #### Usage
 
