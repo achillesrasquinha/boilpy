@@ -49,6 +49,7 @@ Go ahead and create an isolated virtual environment for your package.
 
 ```console
 foo@bar:~$ make env
+→ [<TIMESTAMP>] Creating a Virtual Environment .venv with Python - /usr/bin/python
 ```
 
 ##### Installation
@@ -56,7 +57,13 @@ foo@bar:~$ make env
 Then, simply install your package as follows:
 
 ```console
-foo@bar:~$ make # or "make install"
+foo@bar:~$ make
+→ [20:38:23] Cleaning Python Cache
+→ [20:38:23] Cleaning Successful
+→ [20:38:23] Building Requirements
+→ [20:38:23] Installing Requirements
+→ [20:38:23] Installing foobar (development)
+→ [20:38:23] Installation Successful
 ```
 
 ##### Testing
