@@ -31,7 +31,7 @@
 #### Quick Start
 
 <div align="center">
-	<pre><span style="color: green">pip</span> install -q cookiecutter && <span style="color: green">cookiecutter</span> https://github.com/achillesrasquinha/boilpy</pre>
+	<pre><a href="#">pip</a> install -q cookiecutter && <a href="#">cookiecutter</a> https://github.com/achillesrasquinha/boilpy</pre>
 </div>
 
 For an exhaustive installation guide, you can visit the Documentation [here](docs/installation.md).
