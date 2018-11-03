@@ -1,4 +1,4 @@
-.PHONY: docs test
+.PHONY: docs test shell
 
 BASEDIR					= $(shell pwd)
 -include ${BASEDIR}/.env
@@ -11,7 +11,7 @@ PROJDIR					= ${BASEDIR}/${PROJECT}
 DOCSDIR					= ${BASEDIR}/docs
 
 PYTHONPATH		 	   ?= $(shell command -v python)
-VIRTUALENV				= $(shell command -v virtualenv)
+VIRTUALENV			   ?= $(shell command -v virtualenv)
 
 VENVDIR				   ?= ${BASEDIR}/.venv
 VENVBIN					= ${VENVDIR}/bin
@@ -131,6 +131,6 @@ else
 	$(TWINE) upload --repository-url https://upload.pypi.org/legacy/ $(BASEDIR)/dist/* 
 endif
 
-console:
+shell:
 	$(IPYTHON) \
 		--no-banner

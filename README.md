@@ -15,7 +15,9 @@
 	</a>
 </p>
 
-**boilpy** is a carefully crafted Python Package Template that eases development, testing and production workflow. It heavily emphasizes on [convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) so you can focus on getting straight down to building and distributing your python package.
+<div align="justify">
+	<b>boilpy</b> is a carefully crafted Python Package Template that eases development, testing and production workflow. It heavily emphasizes on <a href="https://en.wikipedia.org/wiki/Convention_over_configuration" target="_blank">convention over configuration</a> so you can focus on getting straight down to building and distributing your python package.
+</div>
 
 ### Contents
 
@@ -38,6 +40,39 @@ $ cookiecutter https://github.com/achillesrasquinha/boilpy
 ```
 
 #### Usage
+
+**boilpy** provides you a production-ready template out-of-the-box! To get started, we recommend you to create a [`.env`](https://12factor.net/config) file within your project directory to override environment variables declared within the Makefile. You can override the environment variables defined [here](docs/index.md#environment-variables).
+
+##### Configuration
+
+Go ahead and create an isolated virtual environment for your package.
+
+```shell
+$ make env
+```
+
+##### Installation
+
+Then, simply install your package as follows:
+
+```shell
+$ make # or "make install"
+```
+
+##### Testing
+
+To test your package, launch the shell as follows:
+
+```shell
+$ make shell
+```
+
+...and then simply import your package as follows:
+
+```ipython
+In [1]: import foobar
+"Hello, World"
+```
 
 #### License
 
