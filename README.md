@@ -15,6 +15,8 @@
 	</a>
 </p>
 
+**boilpy** is a carefully crafted Python Package Template that eases development, testing and production workflow. It heavily emphasizes on [convention over configuration](https://en.wikipedia.org/wiki/Convention_over_configuration) so you can focus on getting straight down to building and distributing your python package.
+
 ### Contents
 
 * [Installation](#installation)
@@ -32,7 +34,7 @@ $ pip install cookiecutter
 You can then use `cookiecutter` to fetch and setup **boilpy** as follows:
 
 ```shell
-$ cookiecutter https://git.io/boilpy
+$ cookiecutter https://github.com/achillesrasquinha/boilpy
 ```
 
 #### Usage
