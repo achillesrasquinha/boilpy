@@ -93,6 +93,29 @@ In [2]: fb.__name__
 Out[2]: 'foobar'
 ```
 
+To check if the command-line interface works, activate the virtual environment:
+
+```console
+foo@bar:~/foobar$ source .venv/bin/activate
+```
+
+...and then simply type the command:
+
+```console
+foo@bar:~/foobar$ foobar
+Usage: foobar [OPTIONS] COMMAND [ARGS]...
+
+  A foobar package
+
+Options:
+  --version   Show the version and exit.
+  -h, --help  Show this message and exit.
+
+Commands:
+  help     Show this message and exit.
+  version  Show version and exit.
+```
+
 ### License
 
 This repository has been released under the [MIT License](LICENSE).
