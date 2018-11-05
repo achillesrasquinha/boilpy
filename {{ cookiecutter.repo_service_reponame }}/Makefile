@@ -5,9 +5,9 @@ BASEDIR					= $(shell pwd)
 
 ENVIRONMENT				= development
 
-PROJECT					= {{ cookiecutter.slug }}
+PROJECT					= {{ cookiecutter.name }}
 
-PROJDIR					= ${BASEDIR}/${PROJECT}
+PROJDIR					= ${BASEDIR}/{{ cookiecutter.slug }}
 DOCSDIR					= ${BASEDIR}/docs
 
 PYTHONPATH		 	   ?= $(shell command -v python)

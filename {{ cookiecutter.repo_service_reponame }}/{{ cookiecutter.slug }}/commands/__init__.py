@@ -1,3 +1,4 @@
+{% if   cookiecutter.cli == "click" %}
 import click
 import click_completion
 from   click_didyoumean import DYMGroup
@@ -29,7 +30,14 @@ def group():
 command = group_commands(group, (
     "{{ cookiecutter.slug }}.commands.base.help"
 ))
+{% elif cookiecutter.cli == "argparse" %}
+
+{% endif %}
 
 def main():
+    {% if   cookiecutter.cli == "click" %}
     code = command(prog_name = {{ cookiecutter.slug }}.__name__, obj = {}) # pylint: disable=E1111,E1123,E1120
+    {% elif cookiecutter.cli == "argparse" %}
+
+    {% endif %}
     return code

@@ -21,9 +21,13 @@
 </p>
 
 ### Table of Contents
+* [Features](#features)
 * [Installation](#installation)
 * [Usage](#usage)
 * [License](#license)
+
+#### Features
+
 
 #### Installation
 
@@ -32,6 +36,7 @@ $ pip install {{ cookiecutter.name.lower().replace(' ', '-') }}
 ```
 
 #### Usage
+
 
 #### License
 

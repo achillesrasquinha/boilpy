@@ -7,11 +7,15 @@ python:
   - "3.6"
   - "3.7-dev"
 
+env:
+  - VENVDIR=$VIRTUAL_ENV
+  - VERBOSE=true
+
 install:
-  - make VENVDIR=$VIRTUAL_ENV VERBOSE=true
+  - make
 
 script:
-  - make test VENVDIR=$VIRTUAL_ENV VERBOSE=true
+  - make test
 
 after_success:
-  - make coverage ENVIRONMENT=test VENVDIR=$VIRTUAL_ENV VERBOSE=true
+  - ENVIRONMENT=test make coverage

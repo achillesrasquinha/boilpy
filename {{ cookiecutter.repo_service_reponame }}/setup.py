@@ -14,7 +14,9 @@ except ImportError:
 
 # globals
 PACKAGE     = "{{ cookiecutter.slug    }}"
+{% if cookiecutter.cli != "none" %}
 COMMAND     = "{{ cookiecutter.command }}"
+{% endif %}
 ENVIRONMENT = "production" if sys.argv[1] == "install" else "development"
 
 def isdef(var):
@@ -50,6 +52,7 @@ setup(
     license              = __license__,
     keywords             = " ".join(__keywords__),
     packages             = find_packages(),
+    {% if cookiecutter.cli != "none" %}
     entry_points         = {
         "console_scripts": [
             "{name} = {project}.__main__:main".format(
@@ -58,6 +61,7 @@ setup(
             )
         ]
     },
+    {% endif %}
     install_requires     = get_dependencies(type_ = ENVIRONMENT if isdef("ENVIRONMENT") else None),
     include_package_data = True,
     classifiers          = (
@@ -65,8 +69,10 @@ setup(
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
+        {% if cookiecutter.compat != "none" %}
         "Programming Language :: Python :: 2",
         "Programming Language :: Python :: 2.7",
+        {% endif %}
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
