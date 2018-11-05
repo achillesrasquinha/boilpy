@@ -18,6 +18,9 @@
     <a href="https://pypi.org/project/{{ cookiecutter.name.lower().replace(' ', '-') }}/">
 		<img src="https://img.shields.io/pypi/l/{{ cookiecutter.name.lower().replace(' ', '-') }}.svg?style=flat-square">
 	</a>
+	<a href="https://git.io/boilpy">
+		<img src="https://img.shields.io/badge/%F0%9F%93%A6-boilpy-red.svg?style=flat-square">
+	</a>
 </p>
 
 ### Table of Contents
