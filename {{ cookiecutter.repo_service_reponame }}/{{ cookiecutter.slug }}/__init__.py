@@ -6,10 +6,5 @@ from {{ cookiecutter.slug }}.__attr__ import (
 )
 
 def get_version_str():
-    version = "%s%s" % (
-        {{ cookiecutter.slug }}.__version__,
-        " (%s)" % {{ cookiecutter.slug }}.__build__
-            if {{ cookiecutter.slug }}.__build__ else ""
-    )
-
+    version = "%s%s" % (__version__, " (%s)" % __build__ if __build__ else "")
     return version

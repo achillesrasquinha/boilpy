@@ -14,5 +14,6 @@
          "license": ["MIT License", "Apache License 2.0", "GNU General Public License v3.0", "none"],
     "repo_service": ["https://github.com", "https://gitlab.com"],
     "repo_service_username": "",
-    "repo_service_reponame": "{{ cookiecutter.name.lower().replace(' ', '-') }}"
+    "repo_service_reponame": "{{ cookiecutter.name.lower().replace(' ', '-') }}",
+                   "editor": ["vscode", "other"]
 }

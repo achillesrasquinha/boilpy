@@ -101,6 +101,9 @@ if __name__ == "__main__":
     if "gitlab" not in "{{ cookiecutter.repo_service }}":
         remove(osp.join(BASEDIR, ".gitlab"), recursive = True)
 
+    if "{{ cookiecutter.editor }}" == "other":
+        remove(osp.join(BASEDIR, ".vscode"), recursive = True)
+
     remote = "/".join([
         "{{ cookiecutter.repo_service }}",
         "{{ cookiecutter.repo_service_username }}",

@@ -4,6 +4,7 @@ import click_completion
 from   click_didyoumean import DYMGroup
 
 from   {{ cookiecutter.slug }}.commands.util import group_commands
+from   {{ cookiecutter.slug }}.commands.base.version import VERSION_STRING
 import {{ cookiecutter.slug }}
 
 click_completion.init()
@@ -12,7 +13,6 @@ click_completion.init()
 CONTEXT_SETTINGS = dict(
     help_option_names = ["-h", "--help"]
 )
-VERSION_STRING   = "%s%s" % ({{ cookiecutter.slug }}.__version__, " (%s)" % {{ cookiecutter.slug }}.__build__ if {{ cookiecutter.slug }}.__build__ else "")
 
 @click.group(
     name = {{ cookiecutter.slug }}.__name__,
@@ -28,6 +28,7 @@ def group():
     pass
 
 command = group_commands(group, (
+    "{{ cookiecutter.slug }}.commands.base.version",
     "{{ cookiecutter.slug }}.commands.base.help"
 ))
 {% elif cookiecutter.cli == "argparse" %}
