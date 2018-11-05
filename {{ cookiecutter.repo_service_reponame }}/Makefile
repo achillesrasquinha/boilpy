@@ -3,7 +3,7 @@
 BASEDIR					= $(shell pwd)
 -include ${BASEDIR}/.env
 
-ENVIRONMENT				= development
+ENVIRONMENT			   ?= development
 
 PROJECT					= {{ cookiecutter.name }}
 
@@ -25,6 +25,7 @@ COVERALLS				= ${VENVBIN}/coveralls
 TWINE					= ${VENVBIN}/twine
 SPHINXBUILD				= ${VENVBIN}/sphinx-build
 IPYTHON					= ${VENVBIN}/ipython
+BUMPVERSION				= ${VENVBIN}/bumpversion
 
 JOBS				   ?= $(shell $(PYTHON) -c "import multiprocessing as mp; print(mp.cpu_count())")
 
@@ -52,8 +53,8 @@ ifneq (${VERBOSE},true)
 endif
 
 	$(call log,INFO,Building Requirements)
-	awk '{print}' $(BASEDIR)/requirements/*.txt > $(BASEDIR)/requirements-dev.txt
-	cat $(BASEDIR)/requirements/production.txt  > $(BASEDIR)/requirements.txt
+	@awk '{print}' $(BASEDIR)/requirements/*.txt > $(BASEDIR)/requirements-dev.txt
+	@cat $(BASEDIR)/requirements/production.txt  > $(BASEDIR)/requirements.txt
 		
 	$(call log,INFO,Installing Requirements)
 	$(PIP) install -r $(BASEDIR)/requirements-dev.txt $(OUT)
@@ -71,9 +72,9 @@ clean:
 	clear
 
 	$(call log,INFO,Cleaning Python Cache)
-	find $(BASEDIR) | grep -E "__pycache__|\.pyc" | xargs rm -rf
+	@find $(BASEDIR) | grep -E "__pycache__|\.pyc" | xargs rm -rf
 
-	rm -rf \
+	@rm -rf \
 		$(BASEDIR)/*.egg-info \
 		$(BASEDIR)/.pytest_cache \
 		$(BASEDIR)/.tox \
@@ -120,6 +121,12 @@ endif
 
 	$(call log,INFO,Creating a Virtual Environment ${VENVDIR} with Python - ${PYTHONPATH})
 	$(VIRTUALENV) $(VENVDIR) -p $(PYTHONPATH) $(OUT)
+
+bump: test
+	$(BUMPVERSION) \
+		--current-version $(shell cat $(PROJDIR)/VERSION) \
+		$(TYPE) \
+		$(PROJDIR)/VERSION 
 
 release: test
 	$(PYTHON) setup.py sdist bdist_wheel

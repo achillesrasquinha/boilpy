@@ -22,9 +22,23 @@ ENVIRONMENT = "production" if sys.argv[1] == "install" else "development"
 def isdef(var):
     return var in globals()
 
-with open(osp.join(PACKAGE, "__attr__.py")) as f:
-    content = f.read()
-    exec(content)
+def read(path):
+    content = None
+    
+    with open(path) as f:
+        content = f.read()
+
+    return content
+
+def get_package_info():
+    attr = osp.join(PACKAGE, "__attr__.py")
+    info = dict(__file__ = attr) # HACK
+    
+    with open(attr) as f:
+        content = f.read()
+        exec(content, info)
+
+    return info
 
 def get_dependencies(type_ = None):
     path         = osp.abspath("requirements{type_}.txt".format(
@@ -34,29 +48,24 @@ def get_dependencies(type_ = None):
     
     return requirements
 
-def read(path):
-    path = osp.abspath(path)
-    
-    with open(path) as f:
-        content = f.read()
-    return content
+PKGINFO    = get_package_info()
 
 setup(
-    name                 = __name__,
-    version              = __version__,
-    url                  = __url__,
-    author               = __author__,
-    author_email         = __email__,
-    description          = __description__,
+    name                 = PKGINFO["__name__"],
+    version              = PKGINFO["__version__"],
+    url                  = PKGINFO["__url__"],
+    author               = PKGINFO["__author__"],
+    author_email         = PKGINFO["__email__"],
+    description          = PKGINFO["__description__"],
     long_description     = read("README.md"),
-    license              = __license__,
-    keywords             = " ".join(__keywords__),
+    license              = PKGINFO["__license__"],
+    keywords             = " ".join(PKGINFO["__keywords__"]),
     packages             = find_packages(),
     {% if cookiecutter.cli != "none" %}
     entry_points         = {
         "console_scripts": [
             "{name} = {project}.__main__:main".format(
-                name    = COMMAND if isdef("COMMAND_NAME")    else __name__,
+                name    = COMMAND if isdef("COMMAND_NAME") else PKGINFO["__name__"],
                 project = PACKAGE
             )
         ]

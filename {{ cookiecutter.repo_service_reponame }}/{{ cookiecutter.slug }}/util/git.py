@@ -1,15 +1,19 @@
 import os
 import subprocess
 
-def get_revision(path, raise_err = True):
+from   {{ cookiecutter.slug }}.util.system import popen
+from   {{ cookiecutter.slug }}.util.string import strip
+
+def get_revision(path, short = False, raise_err = True):
     """
+    Returns the git revision of a repository. Raises error if not a valid git repository.
     """
     revision = None
 
     try:
-        with open(os.devnull, "w") as quiet:
-            output   = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd = path, stderr = quiet)
-            revision = output.strip()
+        short        = "--short" if short else ""
+        _, output, _ = popen("git rev-parse", short, "HEAD", cwd = path, output = False)
+        revision     = output
     except (subprocess.CalledProcessError, FileNotFoundError):
         if raise_err:
             raise
