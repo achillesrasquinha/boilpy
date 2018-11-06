@@ -40,6 +40,30 @@ $ pip install {{ cookiecutter.name.lower().replace(' ', '-') }}
 
 #### Usage
 
+##### Application Interface
+
+```python
+>>> import {{ cookiecutter.slug }}
+```
+
+{% if cookiecutter.cli != "none" %}
+##### Command-Line Interface
+
+```console
+$ {{ cookiecutter.command }}
+Usage: {{ cookiecutter.command }} [OPTIONS] COMMAND [ARGS]...
+
+  {{ cookiecutter.description }}
+
+Options:
+  --version   Show the version and exit.
+  -h, --help  Show this message and exit.
+
+Commands:
+  help     Show this message and exit.
+  version  Show version and exit.
+```
+{% endif %}
 
 #### License
 

@@ -17,7 +17,7 @@ PACKAGE     = "{{ cookiecutter.slug    }}"
 {% if cookiecutter.cli != "none" %}
 COMMAND     = "{{ cookiecutter.command }}"
 {% endif %}
-ENVIRONMENT = "production" if sys.argv[1] == "install" else "development"
+ENVIRONMENT = "development" if sys.argv[1] in ["develop"] else "production"
 
 def isdef(var):
     return var in globals()
@@ -60,7 +60,7 @@ setup(
     long_description     = read("README.md"),
     license              = PKGINFO["__license__"],
     keywords             = " ".join(PKGINFO["__keywords__"]),
-    packages             = find_packages(),
+    packages             = find_packages(exclude = ["test"]),
     {% if cookiecutter.cli != "none" %}
     entry_points         = {
         "console_scripts": [

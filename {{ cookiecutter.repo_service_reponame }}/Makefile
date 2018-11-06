@@ -43,6 +43,10 @@ define log
 	@echo "${BULLET} ${$1}[${TIMESTAMP}]${CLEAR} ${BOLD}$2${CLEAR}"
 endef
 
+define browse
+	$(PYTHON) -c "import webbrowser as wb; wb.open('${$1}')"
+endef
+
 ifndef VERBOSE
 .SILENT:
 endif
@@ -97,7 +101,7 @@ endif
 	$(PYTEST) -n $(JOBS) --cov $(PROJDIR) $(IARGS) $(ARGS)
 
 ifeq (${ENVIRONMENT},development)
-	$(PYTHON) -c "import webbrowser as wb; wb.open('file:///${BASEDIR}/htmlcov/index.html')"
+	$(call browse,file:///${BASEDIR}/htmlcov/index.html)
 endif
 
 ifeq (${ENVIRONMENT},test)
@@ -113,6 +117,10 @@ endif
 	$(SPHINXBUILD) $(DOCSDIR)/source $(DOCSDIR)/build $(OUT)
 
 	$(call log,SUCCESS,Building Documentation Successful)
+
+ifeq (${launch},true)
+	$(call browse,file:///${DOCSDIR}/build/index.html)
+endif
 
 env:
 ifneq (${VERBOSE},true)

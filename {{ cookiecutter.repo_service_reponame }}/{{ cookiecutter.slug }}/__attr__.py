@@ -1,3 +1,7 @@
+{% if cookiecutter.compat != "none" %}
+from __future__ import absolute_import
+{% endif %}
+
 import os.path as osp
 
 from {{ cookiecutter.slug }}.util.git    import get_revision
