@@ -60,7 +60,9 @@ setup(
     long_description     = read("README.md"),
     license              = PKGINFO["__license__"],
     keywords             = " ".join(PKGINFO["__keywords__"]),
-    packages             = find_packages(exclude = ["test"]),
+    packages             = find_packages("src"),
+    packages_dir         = { "": "src" },
+    zip_safe             = False,
     {% if cookiecutter.cli != "none" %}
     entry_points         = {
         "console_scripts": [

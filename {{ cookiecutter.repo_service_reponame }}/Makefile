@@ -1,4 +1,4 @@
-.PHONY: docs test shell
+.PHONY: docs test shell help
 
 BASEDIR					= $(shell pwd)
 -include ${BASEDIR}/.env
@@ -51,7 +51,10 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-install: clean
+help: ## Show help and exit.
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+install: clean ## Install all dependencies
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
 endif
@@ -136,7 +139,7 @@ bump: test
 		$(TYPE) \
 		$(PROJDIR)/VERSION 
 
-release: test
+release: test ## Create a Release
 	$(PYTHON) setup.py sdist bdist_wheel
 
 ifeq (${ENVIRONMENT},development)
@@ -146,6 +149,10 @@ else
 	$(TWINE) upload --repository-url https://upload.pypi.org/legacy/ $(BASEDIR)/dist/* 
 endif
 
-shell:
+shell: ## Launch an IPython shell.
+	$(call log,INFO,Launching Python Shell)
 	$(IPYTHON) \
 		--no-banner
+
+help: ## Show help and exit.
+	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

@@ -83,7 +83,8 @@ def setup_git_repo(path, remote = None, commit = False):
         popen("git commit -m 'Initial Commit'", cwd = path, output = False)
 
 BASEDIR = osp.realpath(osp.curdir)
-PROJDIR = osp.join(BASEDIR, "{{ cookiecutter.slug }}")
+SRCDIR  = osp.join(BASEDIR, "src")
+PROJDIR = osp.join(SRCDIR, "{{ cookiecutter.slug }}")
 
 if __name__ == "__main__":
     if "{{ cookiecutter.license }}" == "none":
@@ -103,6 +104,7 @@ if __name__ == "__main__":
 
     if "gitlab" not in "{{ cookiecutter.repo_service }}":
         remove(osp.join(BASEDIR, ".gitlab"), recursive = True)
+        remove(osp.join(PROJDIR, ".gitlab-ci.yml"))
 
     if "{{ cookiecutter.editor }}" == "other":
         remove(osp.join(BASEDIR, ".vscode"), recursive = True)
