@@ -68,7 +68,7 @@ foo@bar:~/foobar$ make env
 Simply install your package as follows:
 
 ```console
-foo@bar:~/foobar$ make
+foo@bar:~/foobar$ make install
 → [20:38:23] Cleaning Python Cache
 → [20:38:23] Cleaning Successful
 → [20:38:23] Building Requirements

@@ -28,6 +28,7 @@ IPYTHON					= ${VENVBIN}/ipython
 BUMPVERSION				= ${VENVBIN}/bumpversion
 
 JOBS				   ?= $(shell $(PYTHON) -c "import multiprocessing as mp; print(mp.cpu_count())")
+PYTHON_ENVIRONMENT      = $(shell $(PYTHON) -c "import sys;v=sys.version_info;print('py%s%s'%(v.major,v.minor))")
 
 NULL					= /dev/null
 
@@ -51,32 +52,46 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-help: ## Show help and exit.
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+.DEFAULT_GOAL 		   := help
 
-install: clean ## Install all dependencies
+env: ## Create a Virtual Environment
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
+endif
+
+	$(call log,INFO,Creating a Virtual Environment ${VENVDIR} with Python - ${PYTHONPATH})
+	$(VIRTUALENV) $(VENVDIR) -p $(PYTHONPATH) $(OUT)
+
+info: ## Display Information
+	@echo "Python Environment: ${PYTHON_ENVIRONMENT}"
+
+install: clean ## Install dependencies and module.
+ifneq (${VERBOSE},true)
+	$(eval OUT = > /dev/null)
+endif
+
+ifneq (${PIPCACHEDIR},)
+	$(eval PIPCACHEDIR = --cache-dir $(PIPCACHEDIR))
 endif
 
 	$(call log,INFO,Building Requirements)
 	@awk '{print}' $(BASEDIR)/requirements/*.txt > $(BASEDIR)/requirements-dev.txt
 	@cat $(BASEDIR)/requirements/production.txt  > $(BASEDIR)/requirements.txt
-		
+
 	$(call log,INFO,Installing Requirements)
-	$(PIP) install -r $(BASEDIR)/requirements-dev.txt $(OUT)
+	$(PIP) install -qr $(BASEDIR)/requirements-dev.txt
 
 	$(call log,INFO,Installing ${PROJECT} (${ENVIRONMENT}))
-ifeq (${ENVIRONMENT},development)
-	$(PYTHON) setup.py develop $(OUT)
-else
+ifeq (${ENVIRONMENT},production)
 	$(PYTHON) setup.py install $(OUT)
+else
+	$(PYTHON) setup.py develop $(OUT)
 endif
 
 	$(call log,SUCCESS,Installation Successful)
 
-clean:
-	clear
+clean: ## Clean cache, build and other auto-generated files.
+	@clear
 
 	$(call log,INFO,Cleaning Python Cache)
 	@find $(BASEDIR) | grep -E "__pycache__|\.pyc" | xargs rm -rf
@@ -92,16 +107,16 @@ clean:
 
 	$(call log,SUCCESS,Cleaning Successful)
 
-test: install
+test: install ## Run tests.
 	$(call log,INFO,Running Python Tests using $(JOBS) jobs.)
-	$(DETOX) -n $(JOBS) --skip-missing-interpreters
+	$(DETOX) -n $(JOBS) --skip-missing-interpreters $(ARGS)
 
-coverage:
+coverage: install ## Run tests and display coverage.
 ifeq (${ENVIRONMENT},development)
 	$(eval IARGS := --cov-report html)
 endif
 
-	$(PYTEST) -n $(JOBS) --cov $(PROJDIR) $(IARGS) $(ARGS)
+	$(PYTEST) -n $(JOBS) --cov $(PROJDIR) $(IARGS) -vv $(ARGS)
 
 ifeq (${ENVIRONMENT},development)
 	$(call browse,file:///${BASEDIR}/htmlcov/index.html)
@@ -111,7 +126,7 @@ ifeq (${ENVIRONMENT},test)
 	$(COVERALLS)
 endif
 
-docs: install
+docs: install ## Build Documentation
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
 endif
@@ -125,15 +140,7 @@ ifeq (${launch},true)
 	$(call browse,file:///${DOCSDIR}/build/index.html)
 endif
 
-env:
-ifneq (${VERBOSE},true)
-	$(eval OUT = > /dev/null)
-endif
-
-	$(call log,INFO,Creating a Virtual Environment ${VENVDIR} with Python - ${PYTHONPATH})
-	$(VIRTUALENV) $(VENVDIR) -p $(PYTHONPATH) $(OUT)
-
-bump: test
+bump: test ## Bump Version
 	$(BUMPVERSION) \
 		--current-version $(shell cat $(PROJDIR)/VERSION) \
 		$(TYPE) \

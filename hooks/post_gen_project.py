@@ -11,23 +11,24 @@ def iteritems(dict_, **kwargs):
         iterator = iter(dict_.items(), **kwargs)
     return iterator
 
-def remove(path, recursive = False, raise_err = True):
-    path = osp.abspath(path)
+def remove(*paths, recursive = False, raise_err = True):
+    for path in paths:
+        path = osp.abspath(path)
 
-    if osp.isdir(path):
-        if recursive:
-            shutil.rmtree(path)
+        if osp.isdir(path):
+            if recursive:
+                shutil.rmtree(path)
+            else:
+                if raise_err:
+                    raise OSError("{path} is a directory.".format(
+                        path = path
+                    ))
         else:
-            if raise_err:
-                raise OSError("{path} is a directory.".format(
-                    path = path
-                ))
-    else:
-        try:
-            os.remove(path)
-        except OSError:
-            if raise_err:
-                raise
+            try:
+                os.remove(path)
+            except OSError:
+                if raise_err:
+                    raise
 
 def popen(*args, **kwargs):
     output      = kwargs.get("output", True)
@@ -82,29 +83,61 @@ def setup_git_repo(path, remote = None, commit = False):
         popen("git add .")
         popen("git commit -m 'Initial Commit'", cwd = path, output = False)
 
+        popen("git checkout -B develop --track master", cwd = path, output = False)
+        popen("git checkout -B hotfix  --track master", cwd = path, output = False)
+        popen("git checkout master", cwd = path, output = False)
+
 BASEDIR = osp.realpath(osp.curdir)
 SRCDIR  = osp.join(BASEDIR, "src")
-PROJDIR = osp.join(SRCDIR, "{{ cookiecutter.slug }}")
+TESTDIR = osp.join(BASEDIR, "tests")
+PROJDIR = osp.join(SRCDIR,  "{{ cookiecutter.slug }}")
 
 if __name__ == "__main__":
     if "{{ cookiecutter.license }}" == "none":
         remove(osp.join(BASEDIR, "LICENSE"))
 
+    if "{{ cookiecutter.cli }}"     != "click":
+        remove(
+            osp.join(PROJDIR, "util", "imports.py"),
+            osp.join(PROJDIR, "util", "type.py"),
+            osp.join(TESTDIR, "util", "test_imports.py"),
+            osp.join(TESTDIR, "util", "test_type.py")
+        )
+        
     if "{{ cookiecutter.cli }}"     != "argparse":
         remove(osp.join(PROJDIR, "cli"), recursive = True)
 
+    if "{{ cookiecutter.cli }}"     == "none":
+        remove(
+            osp.join(PROJDIR, "__main__.py"),
+            osp.join(PROJDIR, "commands"),
+            osp.join(PROJDIR, "util"),
+            osp.join(TESTDIR, "commands"),
+            osp.join(TESTDIR, "util")
+        , recursive = True)
+
     if "{{ cookiecutter.compat }}"  != "custom":
-        remove(osp.join(PROJDIR, "_compat.py"))
+        remove(
+            osp.join(PROJDIR, "_compat.py"),
+            osp.join(TESTDIR, "test__compat.py")
+        )
 
     if "{{ cookiecutter.compat }}"  == "none":
         remove(osp.join(BASEDIR, "requirements", "compatibility.txt"))
+    
+    if "{{ cookiecutter.config }}" != "y":
+        remove(
+            osp.join(PROJDIR, "cache.py")
+        )
 
     if "github" not in "{{ cookiecutter.repo_service }}":
         remove(osp.join(BASEDIR, ".github"), recursive = True)
 
     if "gitlab" not in "{{ cookiecutter.repo_service }}":
-        remove(osp.join(BASEDIR, ".gitlab"), recursive = True)
-        remove(osp.join(PROJDIR, ".gitlab-ci.yml"))
+        remove(
+            osp.join(BASEDIR, ".gitlab"),
+            osp.join(BASEDIR, ".gitlab-ci.yml")
+        , recursive = True)
 
     if "{{ cookiecutter.editor }}" == "other":
         remove(osp.join(BASEDIR, ".vscode"), recursive = True)

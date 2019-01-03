@@ -13,11 +13,8 @@ except ImportError:
     from pip.req           import parse_requirements # pip 9
 
 # globals
-PACKAGE     = "{{ cookiecutter.slug    }}"
-{% if cookiecutter.cli != "none" %}
-COMMAND     = "{{ cookiecutter.command }}"
-{% endif %}
-ENVIRONMENT = "development" if sys.argv[1] in ["develop"] else "production"
+PACKAGE     = "{{ cookiecutter.slug }}"
+SRCDIR      = "src"
 
 def isdef(var):
     return var in globals()
@@ -31,7 +28,7 @@ def read(path):
     return content
 
 def get_package_info():
-    attr = osp.join(PACKAGE, "__attr__.py")
+    attr = osp.join(SRCDIR, PACKAGE, "__attr__.py")
     info = dict(__file__ = attr) # HACK
     
     with open(attr) as f:
@@ -60,20 +57,23 @@ setup(
     long_description     = read("README.md"),
     license              = PKGINFO["__license__"],
     keywords             = " ".join(PKGINFO["__keywords__"]),
-    packages             = find_packages("src"),
-    packages_dir         = { "": "src" },
+    packages             = find_packages(where = SRCDIR),
+    package_dir          = { "": SRCDIR },
     zip_safe             = False,
     {% if cookiecutter.cli != "none" %}
     entry_points         = {
         "console_scripts": [
-            "{name} = {project}.__main__:main".format(
-                name    = COMMAND if isdef("COMMAND_NAME") else PKGINFO["__name__"],
-                project = PACKAGE
+            "%s = %s.__main__:main" % (
+                PKGINFO["__command__"] if hasattr(PKGINFO, "__command__") else PKGINFO["__name__"],
+                PACKAGE
             )
         ]
     },
     {% endif %}
-    install_requires     = get_dependencies(type_ = ENVIRONMENT if isdef("ENVIRONMENT") else None),
+    install_requires     = get_dependencies(type_ = "production"),
+    extras_require       = dict(
+        dev = get_dependencies(type_ = "development")
+    ),
     include_package_data = True,
     classifiers          = (
         "Development Status :: 5 - Production/Stable",
