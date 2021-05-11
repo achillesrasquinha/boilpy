@@ -1,7 +1,7 @@
 # imports - compatibility imports
-from pipupgrade.util.system import popen, pardir
-from pipupgrade.util.string import safe_decode
-from pipupgrade._compat     import StringIO, EX_OK, input
+from {{ cookiecutter.slug }}.util.system import popen, pardir
+from {{ cookiecutter.slug }}.util.string import safe_decode
+from {{ cookiecutter.slug }}._compat     import StringIO, EX_OK, input
 
 # imports - standard imports
 import sys
