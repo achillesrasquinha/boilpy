@@ -16,5 +16,8 @@
     "repo_service_username": "",
     "repo_service_reponame": "{{ cookiecutter.name.lower().replace(' ', '-') }}",
                    "editor": ["vscode", "other"],
-                      "url": "{{ cookiecutter.repo_service }}/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}"
+                      "url": "{{ cookiecutter.repo_service }}/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}",
+   "_copy_without_render": [
+      ".github/cworkflows/ci.yml"
+   ]
 }
