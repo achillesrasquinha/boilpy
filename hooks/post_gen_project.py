@@ -147,4 +147,6 @@ if __name__ == "__main__":
         "{{ cookiecutter.repo_service_username }}",
         "{{ cookiecutter.repo_service_reponame }}"
     ])
-    setup_git_repo(BASEDIR, remote = remote, commit = True)
+
+    if not osp.exists(osp.join(BASEDIR, ".git")):
+        setup_git_repo(BASEDIR, remote = remote, commit = True)
