@@ -18,6 +18,6 @@
                    "editor": ["vscode", "other"],
                       "url": "{{ cookiecutter.repo_service }}/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}",
    "_copy_without_render": [
-      ".github/cworkflows/ci.yml"
+      ".github/workflows/ci.yml"
    ]
 }
