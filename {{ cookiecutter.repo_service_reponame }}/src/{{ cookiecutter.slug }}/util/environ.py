@@ -2,11 +2,11 @@
 import os
 
 # imports - module imports
-import pipupgrade
-from   pipupgrade.util.types 	import auto_typecast
-from   pipupgrade._compat		import string_types
+import {{ cookiecutter.slug }}
+from   {{ cookiecutter.slug }}.util.types 	import auto_typecast
+from   {{ cookiecutter.slug }}._compat		import string_types
 
-PREFIX 	= "%s" % pipupgrade.__name__.upper()
+PREFIX 	= "%s" % {{ cookiecutter.slug }}.__name__.upper()
 
 def getenvvar(name, prefix = PREFIX, seperator = "_"):
 	if not prefix:

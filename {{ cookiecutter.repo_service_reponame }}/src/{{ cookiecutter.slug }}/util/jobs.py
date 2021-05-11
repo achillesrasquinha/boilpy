@@ -4,29 +4,18 @@ from   functools import partial
 import sys
 
 # imports - module imports
-from pipupgrade.config          import PATH, Settings
-from pipupgrade.util.imports    import import_handler
-from pipupgrade.util.system     import popen
-from pipupgrade.util._dict      import merge_dict
-from pipupgrade.util.environ    import getenvvar, getenv
-from pipupgrade import parallel, log
+from {{ cookiecutter.slug }}.config          import PATH, Settings
+from {{ cookiecutter.slug }}.util.imports    import import_handler
+from {{ cookiecutter.slug }}.util.system     import popen
+from {{ cookiecutter.slug }}.util._dict      import merge_dict
+from {{ cookiecutter.slug }}.util.environ    import getenvvar, getenv
+from {{ cookiecutter.slug }} import parallel, log
 
 settings = Settings()
 logger   = log.get_logger()
 
 JOBS = [
-    {
-        "name": "build_proxy_list",
-        "schedule": "*/30 * * * *"
-    },
-    {
-        "name": "build_dependency_tree",
-        "schedule": "0 1 * * *",
-        "variables": {
-            getenvvar("JOBS_GEVENT_PATCH"): True
-        },
-        # "beta": True
-    }
+    
 ]
 
 def run_job(name, variables = None):
@@ -38,8 +27,8 @@ def run_job(name, variables = None):
 
     variables = merge_dict(job.get("variables", {}), variables or {})
 
-    popen("%s -c 'from pipupgrade.util.imports import import_handler; import_handler(\"%s\")()'" %
-        (sys.executable, "pipupgrade.jobs.%s.run" % name), env = variables)
+    popen("%s -c 'from {{ cookiecutter.slug }}.util.imports import import_handler; import_handler(\"%s\")()'" %
+        (sys.executable, "{{ cookiecutter.slug }}.jobs.%s.run" % name), env = variables)
 
 def run_all():
     logger.info("Running all jobs...")

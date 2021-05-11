@@ -1,7 +1,7 @@
 # pylint: disable=E1101
 
 # imports - compatibility imports
-from pipupgrade._compat import _is_python_version, range
+from {{ cookiecutter.slug }}._compat import _is_python_version, range
 
 # imports - standard imports
 import itertools

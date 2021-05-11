@@ -2,9 +2,9 @@ import requests
 import grequests
 # from fake_useragent import UserAgent
 
-from pipupgrade.db import get_connection
-from pipupgrade.util.proxy import get_random_requests_proxies
-from pipupgrade.util._dict import merge_dict
+from {{ cookiecutter.slug }}.db import get_connection
+from {{ cookiecutter.slug }}.util.proxy import get_random_requests_proxies
+from {{ cookiecutter.slug }}.util._dict import merge_dict
 
 # user_agent = UserAgent(verify_ssl = False)
 

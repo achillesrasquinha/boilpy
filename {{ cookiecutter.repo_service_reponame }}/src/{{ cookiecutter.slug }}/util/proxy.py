@@ -3,11 +3,11 @@ import os.path as osp
 import re
 import csv
 
-from pipupgrade.config      import PATH
-from pipupgrade.db          import get_connection
-from pipupgrade.util.system import popen
-from pipupgrade.exception   import PopenError
-from pipupgrade import log, db
+from {{ cookiecutter.slug }}.config      import PATH
+from {{ cookiecutter.slug }}.db          import get_connection
+from {{ cookiecutter.slug }}.util.system import popen
+from {{ cookiecutter.slug }}.exception   import PopenError
+from {{ cookiecutter.slug }} import log, db
 
 PROXY_COLUMNS = "host,port,secure,anonymity,country_code,available,error_rate,average_response_time"
 
