@@ -1,31 +1,40 @@
-.PHONY: docs test shell help
+.PHONY: shell test help requirements
 
 BASEDIR					= $(shell pwd)
 -include ${BASEDIR}/.env
 
 ENVIRONMENT			   ?= development
 
-PROJECT					= {{ cookiecutter.name }}
+PROJECT					= {{ cookiecutter.slug }}
 
-PROJDIR					= ${BASEDIR}/{{ cookiecutter.slug }}
+PROJDIR					= ${BASEDIR}/src/{{ cookiecutter.slug }}
+TESTDIR					= ${BASEDIR}/tests
 DOCSDIR					= ${BASEDIR}/docs
+NOTEBOOKSDIR			= ${DOCSDIR}/source/notebooks
 
-PYTHONPATH		 	   ?= $(shell command -v python)
-VIRTUALENV			   ?= $(shell command -v virtualenv)
+PYTHONPATH		 	   ?= python
 
-VENVDIR				   ?= ${BASEDIR}/.venv
-VENVBIN					= ${VENVDIR}/bin
+VIRTUAL_ENV			   ?= ${BASEDIR}/.venv
+VENVBIN				   ?= ${VIRTUAL_ENV}/bin/
 
-PYTHON				  	= ${VENVBIN}/python
-IPYTHON					= ${VENVBIN}/ipython
-PIP					  	= ${VENVBIN}/pip
-PYTEST					= ${VENVBIN}/pytest
-DETOX				  	= ${VENVBIN}/detox
-COVERALLS				= ${VENVBIN}/coveralls
-TWINE					= ${VENVBIN}/twine
-SPHINXBUILD				= ${VENVBIN}/sphinx-build
-IPYTHON					= ${VENVBIN}/ipython
-BUMPVERSION				= ${VENVBIN}/bumpversion
+PYTHON				   ?= ${VENVBIN}python
+IPYTHON					= ${VENVBIN}ipython
+PIP					   ?= ${VENVBIN}pip
+PYTEST				   ?= ${VENVBIN}pytest
+TOX						= ${VENVBIN}tox
+COVERALLS			   ?= ${VENVBIN}coveralls
+IPYTHON					= ${VENVBIN}ipython
+{% if cookiecutter.jupyter %}
+JUPYTER					= ${VENVBIN}jupyter
+{% endif %}
+SAFETY					= ${VENVBIN}safety
+PRECOMMIT				= ${VENVBIN}pre-commit
+SPHINXBUILD				= ${VENVBIN}sphinx-build
+TWINE					= ${VENVBIN}twine
+
+{% if cookiecutter.sqlite %}
+SQLITE					= sqlite
+{% endif %}
 
 JOBS				   ?= $(shell $(PYTHON) -c "import multiprocessing as mp; print(mp.cpu_count())")
 PYTHON_ENVIRONMENT      = $(shell $(PYTHON) -c "import sys;v=sys.version_info;print('py%s%s'%(v.major,v.minor))")
@@ -52,45 +61,52 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-.DEFAULT_GOAL 		   := help
+.DEFAULT_GOAL 		   := help 
 
 env: ## Create a Virtual Environment
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
 endif
 
-	$(call log,INFO,Creating a Virtual Environment ${VENVDIR} with Python - ${PYTHONPATH})
-	$(VIRTUALENV) $(VENVDIR) -p $(PYTHONPATH) $(OUT)
+	$(call log,INFO,Creating a Virtual Environment ${VIRTUAL_ENV} with Python - ${PYTHONPATH})
+	@virtualenv $(VIRTUAL_ENV) -p $(PYTHONPATH) $(OUT)
 
 info: ## Display Information
 	@echo "Python Environment: ${PYTHON_ENVIRONMENT}"
 
-install: clean ## Install dependencies and module.
+requirements: ## Build Requirements
+	$(call log,INFO,Building Requirements)
+	@find $(BASEDIR)/requirements -maxdepth 1 -type f | grep -v 'jobs' | xargs awk '{print}' > $(BASEDIR)/requirements-dev.txt
+	@find $(BASEDIR)/requirements -maxdepth 1 -type f | xargs awk '{print}' > $(BASEDIR)/requirements-jobs.txt
+	@cat $(BASEDIR)/requirements/production.txt  > $(BASEDIR)/requirements.txt
+
+install: clean info requirements ## Install dependencies and module.
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
 endif
 
 ifneq (${PIPCACHEDIR},)
-	$(eval PIPCACHEDIR = --cache-dir $(PIPCACHEDIR))
+	$(eval PIPCACHEDIR := --cache-dir $(PIPCACHEDIR))
 endif
 
-	$(call log,INFO,Building Requirements)
-	@awk '{print}' $(BASEDIR)/requirements/*.txt > $(BASEDIR)/requirements-dev.txt
-	@cat $(BASEDIR)/requirements/production.txt  > $(BASEDIR)/requirements.txt
-
 	$(call log,INFO,Installing Requirements)
-	$(PIP) install -qr $(BASEDIR)/requirements-dev.txt
+ifeq (${ENVIRONMENT},test)
+	$(PIP) install -r $(BASEDIR)/requirements-test.txt $(OUT)
+else
+	$(PIP) install -r $(BASEDIR)/requirements-dev.txt  $(OUT)
+endif
 
 	$(call log,INFO,Installing ${PROJECT} (${ENVIRONMENT}))
-ifeq (${ENVIRONMENT},production)
-	$(PYTHON) setup.py install $(OUT)
-else
+ifeq (${ENVIRONMENT},development)
 	$(PYTHON) setup.py develop $(OUT)
+else
+	$(PYTHON) setup.py install $(OUT)
 endif
 
 	$(call log,SUCCESS,Installation Successful)
 
 clean: ## Clean cache, build and other auto-generated files.
+ifneq (${ENVIRONMENT},test)
 	@clear
 
 	$(call log,INFO,Cleaning Python Cache)
@@ -100,23 +116,28 @@ clean: ## Clean cache, build and other auto-generated files.
 		$(BASEDIR)/*.egg-info \
 		$(BASEDIR)/.pytest_cache \
 		$(BASEDIR)/.tox \
-		$(BASEDIR)/.coverage* \
+		$(BASEDIR)/*.coverage \
+		$(BASEDIR)/*.coverage.* \
 		$(BASEDIR)/htmlcov \
 		$(BASEDIR)/dist \
 		$(BASEDIR)/build \
+		~/.config/$(PROJECT)
 
 	$(call log,SUCCESS,Cleaning Successful)
+else
+	$(call log,SUCCESS,Nothing to clean)
+endif
 
 test: install ## Run tests.
 	$(call log,INFO,Running Python Tests using $(JOBS) jobs.)
-	$(DETOX) -n $(JOBS) --skip-missing-interpreters $(ARGS)
+	$(TOX) $(ARGS)
 
 coverage: install ## Run tests and display coverage.
 ifeq (${ENVIRONMENT},development)
 	$(eval IARGS := --cov-report html)
 endif
 
-	$(PYTEST) -n $(JOBS) --cov $(PROJDIR) $(IARGS) -vv $(ARGS)
+	$(PYTEST) -s -n $(JOBS) --cov $(PROJDIR) $(IARGS) -vv $(ARGS)
 
 ifeq (${ENVIRONMENT},development)
 	$(call browse,file:///${BASEDIR}/htmlcov/index.html)
@@ -126,10 +147,37 @@ ifeq (${ENVIRONMENT},test)
 	$(COVERALLS)
 endif
 
+shell: install ## Launch an IPython shell.
+	$(call log,INFO,Launching Python Shell)
+	$(IPYTHON) \
+		--no-banner
+
+{% if cookiecutter.sqlite %}
+dbshell:
+	$(call log,INFO,Launching SQLite Shell)
+	$(SQLITE) ~/.config/${PROJECT}/db.db
+{% endif %}
+
+build: clean ## Build the Distribution.
+	$(PYTHON) setup.py sdist bdist_wheel
+
+pre-commit: ## Perform Pre-Commit Tasks.
+	$(PRECOMMIT) run
+
 docs: install ## Build Documentation
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
 endif
+
+	{% if cookiecutter.jupyter %}
+	$(call log,INFO,Building Notebooks)
+	@find $(DOCSDIR)/source/notebooks -type f -name '*.ipynb' -not -path "*/.ipynb_checkpoints/*" | \
+		xargs $(JUPYTER) nbconvert \
+			--to notebook 		\
+			--inplace 			\
+			--execute 			\
+			--ExecutePreprocessor.timeout=300
+	{% endif %}
 
 	$(call log,INFO,Building Documentation)
 	$(SPHINXBUILD) $(DOCSDIR)/source $(DOCSDIR)/build $(OUT)
@@ -140,13 +188,29 @@ ifeq (${launch},true)
 	$(call browse,file:///${DOCSDIR}/build/index.html)
 endif
 
+docker-build: clean ## Build the Docker Image.
+	$(call log,INFO,Building Docker Image)
+
+	@docker build $(BASEDIR) --tag $(DOCKER_HUB_USERNAME)/$(PROJECT) $(DOCKER_BUILD_ARGS)
+
+docker-tox: clean ## Test using Docker Tox Image.
+	$(call log,INFO,Running Tests using Docker Tox)
+	$(eval TMPDIR := /tmp/$(PROJECT)-$(shell date +"%Y_%m_%d_%H_%M_%S"))
+
+	@mkdir   $(TMPDIR)
+	@cp -R . $(TMPDIR)
+
+	@docker run --rm -v $(TMPDIR):/app themattrix/tox
+
+	@rm -rf  $(TMPDIR)
+
 bump: test ## Bump Version
 	$(BUMPVERSION) \
 		--current-version $(shell cat $(PROJDIR)/VERSION) \
 		$(TYPE) \
 		$(PROJDIR)/VERSION 
 
-release: test ## Create a Release
+release: ## Create a Release
 	$(PYTHON) setup.py sdist bdist_wheel
 
 ifeq (${ENVIRONMENT},development)
@@ -156,10 +220,13 @@ else
 	$(TWINE) upload --repository-url https://upload.pypi.org/legacy/ $(BASEDIR)/dist/* 
 endif
 
-shell: ## Launch an IPython shell.
-	$(call log,INFO,Launching Python Shell)
-	$(IPYTHON) \
-		--no-banner
+start: ## Start app.
+	$(PYTHON) -m flask run
+
+{% if cookiecutter.jupyter %}
+notebooks: ## Launch Notebooks
+	$(JUPYTER) notebook --notebook-dir $(NOTEBOOKSDIR)
+{% endif %}
 
 help: ## Show help and exit.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)

@@ -6,6 +6,8 @@
              "cli": ["click", "argparse", "none"],
           "config": "y",
           "compat": ["six", "custom", "none"],
+         "jupyter": "n",
+          "sqlite": "n",
             "pypy": "y",
      "description": "",
           "author": "",
