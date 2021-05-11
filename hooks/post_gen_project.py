@@ -100,8 +100,8 @@ if __name__ == "__main__":
         remove(
             osp.join(PROJDIR, "commands", "base"),
             osp.join(TESTDIR, "commands", "base"),
-            osp.join(PROJDIR, "util", "imports.py"),
-            osp.join(TESTDIR, "util", "test_imports.py")
+            # osp.join(PROJDIR, "util", "imports.py"),
+            # osp.join(TESTDIR, "util", "test_imports.py")
         , recursive = True)
         
     if "{{ cookiecutter.cli }}"     != "argparse":
