@@ -1,4 +1,4 @@
-from {{ cookiecutter.slug }}.util.type    import sequencify
+from {{ cookiecutter.slug }}.util.array   import sequencify
 from {{ cookiecutter.slug }}.util.imports import import_handler
 
 # imports - module imports
