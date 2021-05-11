@@ -5,7 +5,7 @@ from __future__ import absolute_import
 {% endif %}
 
 import sys
-import os.path as osp
+import os, os.path as osp
 import subprocess
 
 PY2 = sys.version_info.major == 2
@@ -56,7 +56,9 @@ def get_revision(path, short = False, raise_err = True):
 
     try:
         short    = "--short" if short else ""
-        output   = subprocess.check_output(sequence_filter(["git", "rev-parse", short, "HEAD"], filter_ = None), cwd = path)
+        with open(os.devnull, "w") as NULL:
+            output   = subprocess.check_output(sequence_filter(["git", "rev-parse", short, "HEAD"], filter_ = None),
+                stderr = NULL, cwd = path)
         revision = safe_decode(strip(output))
     except (subprocess.CalledProcessError, FileNotFoundError):
         if raise_err:

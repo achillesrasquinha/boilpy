@@ -2,6 +2,16 @@
 from __future__ import absolute_import
 {% endif %}
 
+try:
+    import os
+
+    if os.environ.get("{{ cookiecutter.slug }}_JOBS_GEVENT_PATCH"):
+        from gevent import monkey
+        monkey.patch_all(threaded = False, select = False)
+except ImportError:
+    pass
+
+# imports - module imports
 from {{ cookiecutter.slug }}.__attr__ import (
     __name__,
     __version__,
@@ -13,12 +23,12 @@ from {{ cookiecutter.slug }}.__attr__ import (
 {% endif %}
     __author__
 )
+from {{ cookiecutter.slug }}.__main__    import main
+from {{ cookiecutter.slug }}.config      import Settings
+from {{ cookiecutter.slug }}             import _pip
+from {{ cookiecutter.slug }}.util.jobs   import run_all as run_all_jobs, run_job
 
-{% if cookiecutter.config == "y" %}
-from {{ cookiecutter.slug }}.cache import Cache
-cache = Cache()
-cache.create()
-{% endif %}
+settings = Settings()
 
 {% if cookiecutter.cli != "none" %}
 def get_version_str():
