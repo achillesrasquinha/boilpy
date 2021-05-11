@@ -6,14 +6,14 @@ on:
       - master
 
 env:
-  COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  COVERALLS_REPO_TOKEN: {% raw %}${{ secrets.GITHUB_TOKEN }}{% endraw %}
 
   ENVIRONMENT: test
   VERBOSE: true
   TERM: xterm
 
   {{ cookiecutter.slug.upper() }}_JOBS_GITHUB_USERNAME: {{ cookiecutter.repo_service_username }}
-  {{ cookiecutter.slug.upper() }}_JOBS_GITHUB_OAUTH_TOKEN: ${{ secrets.{{ cookiecutter.slug.upper() }}_JOBS_GITHUB_OAUTH_TOKEN }}
+  {{ cookiecutter.slug.upper() }}_JOBS_GITHUB_OAUTH_TOKEN: {% raw %}${{ secrets.{% endraw %}{{ cookiecutter.slug.upper() }}_JOBS_GITHUB_OAUTH_TOKEN }}
 
 jobs:
   jobs:
