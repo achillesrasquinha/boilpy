@@ -98,6 +98,7 @@ if __name__ == "__main__":
 
     if "{{ cookiecutter.cli }}"     != "click":
         remove(
+            osp.join(PROJDIR, "commands", "base")
             osp.join(PROJDIR, "util", "imports.py"),
             osp.join(TESTDIR, "util", "test_imports.py"),
         )
