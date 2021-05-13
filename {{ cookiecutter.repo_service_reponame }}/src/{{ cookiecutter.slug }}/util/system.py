@@ -126,3 +126,16 @@ def make_temp_dir():
     dir_path = tempfile.mkdtemp()
     yield dir_path
     shutil.rmtree(dir_path)
+
+def check_gzip(f, raise_err = True):
+    if osp.exists(f):
+        with open(f, "rb") as f:
+            content = f.read(2)
+            
+            if content == b"\x1f\x8b":
+                return True
+            else:
+                if raise_err:
+                    raise ValueError("File %s is not a gzip file." % f)
+
+    return False

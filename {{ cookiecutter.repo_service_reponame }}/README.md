@@ -1,8 +1,9 @@
 <div align="center">
-    <h1>
-        {{ cookiecutter.name }}
-    </h1>
-    <h4>{{ cookiecutter.description }}</h4>
+  <img src=".github/assets/logo.png" height="128">
+  <h1>
+      {{ cookiecutter.name }}
+  </h1>
+  <h4>{{ cookiecutter.description }}</h4>
 </div>
 
 <p align="center">

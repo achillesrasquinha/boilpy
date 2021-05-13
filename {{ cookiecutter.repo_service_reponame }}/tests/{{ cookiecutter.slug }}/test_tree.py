@@ -3,13 +3,14 @@ import pytest
 
 # imports - module imports
 from {{ cookiecutter.slug }}.tree    import Node
+from {{ cookiecutter.slug }}._compat import string_types
 
 def test_node():
     tree1 = Node("foo")
     assert tree1.empty == True
     assert tree1 == Node("foo")
 
-    assert str(tree1) == "<Node 'foo'>"
+    assert string_types(tree1) == "<Node 'foo'>"
 
     assert tree1.render() == \
 """\
