@@ -5,7 +5,7 @@ import pytest
 from {{ cookiecutter.slug }}.util.environ import getenvvar, getenv, value_to_envval
 
 def test_getenvvar():
-    assert getenvvar("FOOBAR")                  == "PIPUPGRADE_FOOBAR"
+    assert getenvvar("FOOBAR")                  == "{{ cookiecutter.slug.upper() }}_FOOBAR"
     assert getenvvar("FOOBAR", prefix = False)  == "FOOBAR"
 
 def test_getenv():

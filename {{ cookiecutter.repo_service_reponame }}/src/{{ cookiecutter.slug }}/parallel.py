@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 # imports - standard imports
 from   contextlib      import contextmanager
 import multiprocessing as mp

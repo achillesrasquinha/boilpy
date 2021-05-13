@@ -1,10 +1,12 @@
+{% set capitalized = cookiecutter.slug.capitalize() %}
+
 # imports - standard imports
 import subprocess as sp
 
 # imports - module imports
 from {{ cookiecutter.slug }}.util.system import popen
 from {{ cookiecutter.slug }}.exception   import (
-    PipupgradeError,
+    {{ capitalized }}Error,
     PopenError
 )
 
@@ -12,8 +14,8 @@ from {{ cookiecutter.slug }}.exception   import (
 import pytest
 
 def test_{{ cookiecutter.slug }}_error():
-    with pytest.raises(PipupgradeError):
-        raise PipupgradeError
+    with pytest.raises({{ capitalized }}Error):
+        raise {{ capitalized }}Error
 
 def test_popen_error():
     with pytest.raises(PopenError):
@@ -21,6 +23,6 @@ def test_popen_error():
 
     assert isinstance(
         PopenError(0, "echo foobar"),
-        (PipupgradeError, sp.CalledProcessError)
+        ({{ capitalized }}Error, sp.CalledProcessError)
     )
-    assert isinstance(PipupgradeError(), Exception)
+    assert isinstance({{ capitalized }}Error(), Exception)

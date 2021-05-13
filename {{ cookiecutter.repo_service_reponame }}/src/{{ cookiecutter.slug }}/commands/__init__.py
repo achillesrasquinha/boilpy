@@ -16,7 +16,7 @@ from {{ cookiecutter.slug }}.util.system   	import (read, write, touch, popen, w
 from {{ cookiecutter.slug }}.util.environ  	import getenvvar
 from {{ cookiecutter.slug }}.util.datetime 	import get_timestamp_str
 from {{ cookiecutter.slug }}.util.imports   import import_handler
-from {{ cookiecutter.slug }} 		      	import (_pip, request as req, cli,
+from {{ cookiecutter.slug }} 		      	import (request as req, cli,
     log, parallel
 )
 from {{ cookiecutter.slug }}._compat		import builtins, iteritems

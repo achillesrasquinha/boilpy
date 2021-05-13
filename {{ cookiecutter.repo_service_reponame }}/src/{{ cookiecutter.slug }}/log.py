@@ -1,3 +1,9 @@
+{% set compat = cookiecutter.compat != "none" %}
+
+{% if compat %}
+from __future__ import absolute_import
+{% endif %}
+
 # imports - standard imports
 import logging
 

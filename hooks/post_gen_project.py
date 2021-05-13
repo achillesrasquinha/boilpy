@@ -89,7 +89,7 @@ def setup_git_repo(path, remote = None, commit = False):
 
 BASEDIR = osp.realpath(osp.curdir)
 SRCDIR  = osp.join(BASEDIR, "src")
-TESTDIR = osp.join(BASEDIR, "tests")
+TESTDIR = osp.join(BASEDIR, "tests", "{{ cookiecutter.slug }}")
 PROJDIR = osp.join(SRCDIR,  "{{ cookiecutter.slug }}")
 
 if __name__ == "__main__":
