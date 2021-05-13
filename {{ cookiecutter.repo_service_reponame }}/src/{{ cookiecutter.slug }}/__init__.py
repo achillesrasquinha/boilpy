@@ -25,7 +25,6 @@ from {{ cookiecutter.slug }}.__attr__ import (
 )
 from {{ cookiecutter.slug }}.__main__    import main
 from {{ cookiecutter.slug }}.config      import Settings
-from {{ cookiecutter.slug }}             import _pip
 from {{ cookiecutter.slug }}.util.jobs   import run_all as run_all_jobs, run_job
 
 settings = Settings()

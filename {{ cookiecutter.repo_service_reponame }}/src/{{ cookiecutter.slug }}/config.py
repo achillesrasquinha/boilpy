@@ -9,7 +9,7 @@ import platform
 import json
 
 # imports - module imports
-from {{ cookiecutter.slug }}              import __name__ as NAME, __version__, _pip
+from {{ cookiecutter.slug }}              import __name__ as NAME, __version__
 from {{ cookiecutter.slug }}.util.system  import pardir, makedirs, touch
 from {{ cookiecutter.slug }}.util.environ import getenv
 from {{ cookiecutter.slug }}.util.types   import auto_typecast
