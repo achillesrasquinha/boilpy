@@ -19,7 +19,7 @@ def test_{{ cookiecutter.slug }}_error():
 
 def test_popen_error():
     with pytest.raises(PopenError):
-        popen('python -c "raise TypeError"')
+        popen('python -c "from {{ cookiecutter.slug }}.exceptions import PopenError; raise PopenError"')
 
     assert isinstance(
         PopenError(0, "echo foobar"),

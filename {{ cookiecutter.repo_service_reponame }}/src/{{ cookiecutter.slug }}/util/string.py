@@ -1,7 +1,9 @@
 # imports - standard imports
 import re
+import uuid
 
 _REGEX_ANSI_ESCAPE = re.compile(r"\x1B\[[0-?]*[ -/]*[@-~]")
+_REGEX_HTML        = re.compile("<.*?>")
 
 def strip(string):
     string = string.lstrip()
@@ -42,3 +44,41 @@ def safe_decode(obj, encoding = "utf-8"):
         pass
     
     return obj
+
+def sanitize_html(html):
+    sanitized = re.sub(_REGEX_HTML, "", html)
+    return sanitized
+
+def sanitize_text(text):
+    text = text.replace("&nbsp;", " ")
+    text = strip(text)
+    return text
+
+def upper(text):
+    text = text.upper()
+    return text
+
+def lower(text):
+    text = text.lower()
+    return text
+
+def capitalize(text):
+    text = text.capitalize()
+    return text
+
+def ellipsis(string, threshold = 50, pattern = "..."):
+    length      = len(string)
+    expected    = threshold + len(pattern) 
+
+    if length > expected:
+        string = string[:expected]
+        string = "%s%s" % (string, pattern)
+
+    return string
+
+def get_random_str():
+    uuid_   = uuid.uuid4()
+    string  = str(uuid_)
+    string  = string.replace("-", "")
+
+    return string

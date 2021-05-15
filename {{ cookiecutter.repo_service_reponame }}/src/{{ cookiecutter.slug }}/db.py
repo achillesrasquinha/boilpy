@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 # imports - standard imports
 import os.path as osp
 import sqlite3

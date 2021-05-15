@@ -15,7 +15,7 @@ from {{ cookiecutter.slug }}.util._dict     import merge_dict
 from {{ cookiecutter.slug }}.util.system   	import (read, write, touch, popen, which)
 from {{ cookiecutter.slug }}.util.environ  	import getenvvar
 from {{ cookiecutter.slug }}.util.datetime 	import get_timestamp_str
-from {{ cookiecutter.slug }}.util.imports   import import_handler
+from {{ cookiecutter.slug }}.util.imports   import import_or_raise
 from {{ cookiecutter.slug }} 		      	import (request as req, cli,
     log, parallel
 )
@@ -68,18 +68,6 @@ def to_params(kwargs):
         setattr(params, k, v)
 
     return params
-
-def import_or_raise(package, name = None):
-    name = name or package
-
-    try:
-        import_handler(package)
-    except ImportError:
-        raise DependencyNotFoundError((
-            "Unable to import {package} for resolving dependencies. "
-            "{{ cookiecutter.slug }} requires {package} to be installed. "
-            "Please install {package} by executing 'pip install {name}'."
-        ).format(package = package, name = name))
 
 def _command(*args, **kwargs):
     a = to_params(kwargs)

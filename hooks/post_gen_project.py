@@ -142,6 +142,16 @@ if __name__ == "__main__":
     if "{{ cookiecutter.editor }}" == "other":
         remove(osp.join(BASEDIR, ".vscode"), recursive = True)
 
+    if "{{ cookiecutter.travis }}" == "n":
+        remove(
+            osp.join(BASEDIR, ".travis.yml")
+        )
+
+    if "{{ cookiecutter.appveyor }}" == "n":
+        remove(
+            osp.join(BASEDIR, "appveyor.yml")
+        )
+
     remote = "/".join([
         "{{ cookiecutter.repo_service }}",
         "{{ cookiecutter.repo_service_username }}",

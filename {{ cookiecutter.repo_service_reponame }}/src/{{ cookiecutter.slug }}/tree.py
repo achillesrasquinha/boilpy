@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 def _render_tree(node, depth = 0, indent = 2, formatter = None):
     spacing     = (indent * " ") * depth
     formatted   = formatter(node.obj) if formatter else node.obj

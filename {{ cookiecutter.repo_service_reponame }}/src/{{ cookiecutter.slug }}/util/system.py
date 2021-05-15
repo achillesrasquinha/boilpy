@@ -121,6 +121,24 @@ def touch(filename):
         with open(filename, "w") as f:
             pass
 
+def remove(path, recursive = False, raise_err = True):
+    path = osp.realpath(path)
+
+    if osp.isdir(path):
+        if recursive:
+            shutil.rmtree(path)
+        else:
+            if raise_err:
+                raise OSError("{path} is a directory.".format(
+                    path = path
+                ))
+    else:
+        try:
+            os.remove(path)
+        except OSError:
+            if raise_err:
+                raise
+
 @contextlib.contextmanager
 def make_temp_dir():
     dir_path = tempfile.mkdtemp()

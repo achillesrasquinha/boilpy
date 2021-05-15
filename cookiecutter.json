@@ -9,6 +9,8 @@
          "jupyter": "n",
           "sqlite": "n",
             "pypy": "y",
+          "travis": "n",
+        "appveyor": "n",
      "description": "",
           "author": "",
            "email": "",

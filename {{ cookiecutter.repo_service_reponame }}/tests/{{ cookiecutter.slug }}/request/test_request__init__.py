@@ -5,7 +5,7 @@ from {{ cookiecutter.slug }}._compat import HTTPError
 import pytest
 
 # imports - standard imports
-from {{ cookiecutter.slug }}         import request as req
+from {{ cookiecutter.slug }} import request as req
 
 def test_get():
     res  = req.get("https://httpbin.org/get")

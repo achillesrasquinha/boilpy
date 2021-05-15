@@ -225,7 +225,7 @@ start: ## Start app.
 
 {% if cookiecutter.jupyter %}
 notebooks: ## Launch Notebooks
-	$(JUPYTER) notebook --notebook-dir $(NOTEBOOKSDIR)
+	$(JUPYTER) notebook --notebook-dir $(NOTEBOOKSDIR) $(ARGS)
 {% endif %}
 
 help: ## Show help and exit.
