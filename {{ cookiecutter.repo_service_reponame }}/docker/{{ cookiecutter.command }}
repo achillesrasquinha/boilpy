@@ -1,0 +1,1 @@
+docker run --rm -it {{ cookiecutter.docker_service_username }}/{{ cookiecutter.docker_service_reponame }} "$@"

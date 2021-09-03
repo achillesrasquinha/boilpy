@@ -7,9 +7,15 @@
 </div>
 
 <p align="center">
+    {% if cookiecutter.travis == "y" %}
     <a href="https://travis-ci.org/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
       <img src="https://img.shields.io/travis/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}.svg?style=flat-square">
     </a>
+    {% else %}
+    <a href="https://github.com/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}/actions/workflows/ci.yml">
+      <img src="https://img.shields.io/github/workflow/status/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}/ci.svg?style=flat-square">
+    </a>
+    {% endif %}
     <a href="https://coveralls.io/github/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
       <img src="https://img.shields.io/coveralls/github/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}.svg?style=flat-square">
     </a>
@@ -29,29 +35,31 @@
 
 ### Table of Contents
 * [Features](#features)
-* [Installation](#installation)
+* [Quick Start](#quick-start)
 * [Usage](#usage)
 * [License](#license)
 
-#### Features
+### Features
+* Python 2.7+ and Python 3.4+ compatible.
 
-
-#### Installation
+### Quick Start
 
 ```shell
 $ pip install {{ cookiecutter.name.lower().replace(' ', '-') }}
 ```
 
-#### Usage
+Check out [installation](docs/source/installation.md) for more details.
 
-##### Application Interface
+### Usage
+
+#### Application Interface
 
 ```python
 >>> import {{ cookiecutter.slug }}
 ```
 
 {% if cookiecutter.cli != "none" %}
-##### Command-Line Interface
+#### Command-Line Interface
 
 ```console
 $ {{ cookiecutter.command }}
@@ -69,7 +77,7 @@ Commands:
 ```
 {% endif %}
 
-#### License
+### License
 
 This repository has been released under the [{{ cookiecutter.license }}](LICENSE).
 
