@@ -3,3 +3,4 @@ click
 click-completion
 click-didyoumean
 {% endif %}
+bpyutils

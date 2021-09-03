@@ -53,6 +53,8 @@ def to_addr(proxy):
     return "%s:%s" % (proxy["host"], str(proxy["port"]))
 
 def get_random_proxy(secure = False, error_rate = 0.5, avg_resp_time = 0.5):
+    fetch()
+
     db      = get_connection()
     where   = "secure = %s and error_rate <= %s and average_response_time <= %s" % (int(secure), error_rate,
         avg_resp_time)

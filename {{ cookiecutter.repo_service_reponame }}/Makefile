@@ -118,6 +118,7 @@ ifneq (${ENVIRONMENT},test)
 		$(BASEDIR)/.tox \
 		$(BASEDIR)/*.coverage \
 		$(BASEDIR)/*.coverage.* \
+		$(BASEDIR)/.coverage.* \
 		$(BASEDIR)/htmlcov \
 		$(BASEDIR)/dist \
 		$(BASEDIR)/build \
