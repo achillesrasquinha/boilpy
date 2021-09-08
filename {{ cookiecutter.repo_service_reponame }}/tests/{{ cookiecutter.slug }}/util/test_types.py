@@ -1,5 +1,5 @@
 # imports - module imports
-from {{ cookiecutter.slug }}.util.types import (
+from bpyutils.util.types import (
     get_function_arguments
 )
 

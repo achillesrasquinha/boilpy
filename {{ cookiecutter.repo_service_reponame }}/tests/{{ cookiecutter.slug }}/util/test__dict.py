@@ -1,5 +1,5 @@
 # imports - module imports
-from {{ cookiecutter.slug }}.util._dict import (
+from bpyutils.util._dict import (
     merge_dict,
     dict_from_list
 )

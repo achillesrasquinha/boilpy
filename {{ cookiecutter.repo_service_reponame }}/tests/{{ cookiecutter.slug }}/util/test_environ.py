@@ -2,7 +2,7 @@
 import pytest
 
 # imports - module imports
-from {{ cookiecutter.slug }}.util.environ import getenvvar, getenv, value_to_envval
+from bpyutils.util.environ import getenvvar, getenv, value_to_envval
 
 def test_getenvvar():
     assert getenvvar("FOOBAR")                  == "{{ cookiecutter.slug.upper() }}_FOOBAR"

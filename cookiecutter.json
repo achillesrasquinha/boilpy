@@ -19,6 +19,8 @@
     "repo_service": ["https://github.com", "https://gitlab.com"],
     "repo_service_username": "",
     "repo_service_reponame": "{{ cookiecutter.name.lower().replace(' ', '-') }}",
+    "docker_service_username": "{{ cookiecutter.repo_service_username }}",
+    "docker_service_reponame": "{{ cookiecutter.repo_service_reponame }}",
                    "editor": ["vscode", "other"],
                       "url": "{{ cookiecutter.repo_service }}/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}",
    "_copy_without_render": [

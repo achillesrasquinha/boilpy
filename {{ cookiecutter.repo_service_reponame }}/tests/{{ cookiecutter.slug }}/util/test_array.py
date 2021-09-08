@@ -1,5 +1,5 @@
 # imports - module imports
-from {{ cookiecutter.slug }}.util.array import (
+from bpyutils.util.array import (
     compact,
     squash,
     flatten,

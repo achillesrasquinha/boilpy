@@ -2,7 +2,7 @@
 import pytest
 
 # imports - module imports
-from   {{ cookiecutter.slug }}.util.datetime import (get_timestamp_str, check_datetime_format,
+from   bpyutils.util.datetime import (get_timestamp_str, check_datetime_format,
     _DEFAULT_TIMESTAMP_FORMAT)
 
 def test_get_timestamp_str():

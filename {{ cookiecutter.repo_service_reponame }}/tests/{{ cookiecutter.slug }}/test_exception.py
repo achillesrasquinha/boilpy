@@ -4,7 +4,7 @@
 import subprocess as sp
 
 # imports - module imports
-from {{ cookiecutter.slug }}.util.system import popen
+from bpyutils.util.system import popen
 from {{ cookiecutter.slug }}.exception   import (
     {{ capitalized }}Error,
     PopenError

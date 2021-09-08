@@ -1,5 +1,5 @@
 # imports - module imports
-from {{ cookiecutter.slug }}.util.string import (strip, strip_ansi, pluralize, kebab_case,
+from bpyutils.util.string import (strip, strip_ansi, pluralize, kebab_case,
     safe_encode, safe_decode)
 from {{ cookiecutter.slug }} import cli
 

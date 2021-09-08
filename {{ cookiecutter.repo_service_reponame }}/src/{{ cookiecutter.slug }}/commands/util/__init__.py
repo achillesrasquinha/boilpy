@@ -1,5 +1,5 @@
-from {{ cookiecutter.slug }}.util.array   import sequencify
-from {{ cookiecutter.slug }}.util.imports import import_handler
+from bpyutils.util.array   import sequencify
+from bpyutils.util.imports import import_handler
 
 # imports - module imports
 from {{ cookiecutter.slug }}.cli.parser import get_args

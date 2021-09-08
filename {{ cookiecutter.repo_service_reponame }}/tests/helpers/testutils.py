@@ -1,6 +1,6 @@
 # imports - compatibility imports
-from {{ cookiecutter.slug }}.util.system import popen, pardir
-from {{ cookiecutter.slug }}.util.string import safe_decode
+from bpyutils.util.system import popen, pardir
+from bpyutils.util.string import safe_decode
 from {{ cookiecutter.slug }}._compat     import StringIO, EX_OK, input
 
 # imports - standard imports

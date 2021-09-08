@@ -10,9 +10,9 @@ import json
 from {{ cookiecutter.slug }}.commands.util 	import cli_format
 from {{ cookiecutter.slug }}.table      	import Table
 from {{ cookiecutter.slug }}.tree			import Node as TreeNode
-from {{ cookiecutter.slug }}.util.string    import pluralize, strip
-from {{ cookiecutter.slug }}.util.system   	import read, write, popen, which
-from {{ cookiecutter.slug }}.util.array		import squash
+from bpyutils.util.string    import pluralize, strip
+from bpyutils.util.system   	import read, write, popen, which
+from bpyutils.util.array		import squash
 from {{ cookiecutter.slug }} 		      	import (cli, semver,
 	log, parallel
 )

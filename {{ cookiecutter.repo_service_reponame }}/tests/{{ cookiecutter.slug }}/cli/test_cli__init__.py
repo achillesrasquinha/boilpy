@@ -4,7 +4,7 @@ from {{ cookiecutter.slug }}._compat import iteritems, iterkeys
 # imports - module imports
 from {{ cookiecutter.slug }} import cli
 from {{ cookiecutter.slug }}.cli import get_args
-from {{ cookiecutter.slug }}.util._dict import merge_dict
+from bpyutils.util._dict import merge_dict
 
 def test_command():
     def _assert_command(values, override = dict(), initial = dict()):

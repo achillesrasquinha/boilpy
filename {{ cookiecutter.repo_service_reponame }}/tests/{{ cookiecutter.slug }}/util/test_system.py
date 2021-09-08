@@ -8,7 +8,7 @@ import pytest
 from testutils import PATH
 
 # imports - module imports
-from {{ cookiecutter.slug }}.util.system import (read, write, popen, which, makedirs,
+from bpyutils.util.system import (read, write, popen, which, makedirs,
     touch, check_gzip)
 
 def test_read(tmpdir):
