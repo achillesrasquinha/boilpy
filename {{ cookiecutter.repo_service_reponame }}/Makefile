@@ -33,7 +33,7 @@ SPHINXBUILD				= ${VENVBIN}sphinx-build
 TWINE					= ${VENVBIN}twine
 
 {% if cookiecutter.sqlite %}
-SQLITE					= sqlite
+SQLITE				   ?= sqlite
 {% endif %}
 
 JOBS				   ?= $(shell $(PYTHON) -c "import multiprocessing as mp; print(mp.cpu_count())")

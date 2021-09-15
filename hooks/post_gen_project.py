@@ -152,6 +152,11 @@ if __name__ == "__main__":
             osp.join(BASEDIR, "appveyor.yml")
         )
 
+    if "{{ cookiecutter.github_action }}" == "n":
+        remove(
+            osp.join(BASEDIR, "action.yml")
+        )
+
     remote = "/".join([
         "{{ cookiecutter.repo_service }}",
         "{{ cookiecutter.repo_service_username }}",

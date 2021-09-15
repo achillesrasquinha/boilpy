@@ -10,8 +10,8 @@
     {% if cookiecutter.travis == "y" %}<a href="https://travis-ci.org/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
       <img src="https://img.shields.io/travis/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}.svg?style=flat-square">
     </a>{% else %}
-    <a href="https://github.com/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}/actions/workflows/ci.yml">
-      <img src="https://img.shields.io/github/workflow/status/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}/ci.svg?style=flat-square">
+    <a href='https://github.com/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}//actions?query=workflow:"Continuous Integration"'>
+      <img src="https://img.shields.io/github/workflow/status/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}/Continuous Integration?style=flat-square">
     </a>{% endif %}
     <a href="https://coveralls.io/github/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
       <img src="https://img.shields.io/coveralls/github/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}.svg?style=flat-square">
