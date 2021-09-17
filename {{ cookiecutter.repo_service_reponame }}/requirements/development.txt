@@ -6,5 +6,7 @@ vulture
 safety
 pre-commit
 twine
+{% if cookiecutter.jupyter %}
 jupyter
+{% endif %}
 Flask

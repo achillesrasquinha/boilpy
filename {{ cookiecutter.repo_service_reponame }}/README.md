@@ -6,8 +6,8 @@
   <h4>{{ cookiecutter.description }}</h4>
 </div>
 
-<p align="center">
-    {% if cookiecutter.travis == "y" %}<a href="https://travis-ci.org/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
+<p align="center">{% if cookiecutter.travis == "y" %}
+    <a href="https://travis-ci.org/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
       <img src="https://img.shields.io/travis/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}.svg?style=flat-square">
     </a>{% else %}
     <a href='https://github.com/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}//actions?query=workflow:"Continuous Integration"'>

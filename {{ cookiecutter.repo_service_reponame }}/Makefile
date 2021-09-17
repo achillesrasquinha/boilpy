@@ -5,12 +5,14 @@ BASEDIR					= $(shell pwd)
 
 ENVIRONMENT			   ?= development
 
-PROJECT					= {{ cookiecutter.slug }}
+PROJECT					= {{ cookiecutter.name }}
 
 PROJDIR					= ${BASEDIR}/src/{{ cookiecutter.slug }}
 TESTDIR					= ${BASEDIR}/tests
 DOCSDIR					= ${BASEDIR}/docs
+{% if cookiecutter.jupyter %}
 NOTEBOOKSDIR			= ${DOCSDIR}/source/notebooks
+{% endif %}
 
 PYTHONPATH		 	   ?= python
 
@@ -128,6 +130,9 @@ ifneq (${ENVIRONMENT},test)
 else
 	$(call log,SUCCESS,Nothing to clean)
 endif
+
+console: install ## Open Console.
+	$(IPYTHON)
 
 test: install ## Run tests.
 	$(call log,INFO,Running Python Tests using $(JOBS) jobs.)

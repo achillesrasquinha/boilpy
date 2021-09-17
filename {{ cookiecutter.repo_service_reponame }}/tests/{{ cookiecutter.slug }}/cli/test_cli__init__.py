@@ -1,5 +1,5 @@
 # imports - compatibility imports
-from {{ cookiecutter.slug }}._compat import iteritems, iterkeys
+from bpyutils._compat import iteritems, iterkeys
 
 # imports - module imports
 from {{ cookiecutter.slug }} import cli

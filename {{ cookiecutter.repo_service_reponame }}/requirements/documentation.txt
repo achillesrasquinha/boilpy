@@ -1,4 +1,6 @@
 sphinx
 recommonmark
+{% if cookiecutter.jupyter %}
 ipykernel
 nbsphinx
+{% endif %}

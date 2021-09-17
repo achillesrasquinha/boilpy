@@ -4,5 +4,7 @@ pytest-xdist
 pytest-cookies
 pylint
 detox
+{% if cookiecutter.travis %}
 tox-travis
+{% endif %}
 coveralls

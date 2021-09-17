@@ -24,7 +24,7 @@ from {{ cookiecutter.slug }}.__attr__ import (
     __author__
 )
 from {{ cookiecutter.slug }}.__main__    import main
-from {{ cookiecutter.slug }}.config      import Settings
+from bpyutils.config      import Settings
 from bpyutils.util.jobs   import run_all as run_all_jobs, run_job
 
 settings = Settings()

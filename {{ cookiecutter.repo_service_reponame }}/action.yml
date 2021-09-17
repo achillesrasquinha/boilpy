@@ -1,2 +1,5 @@
 name: "{{ cookiecutter.name }}"
 description: "{{ cookiecutter.description }}"
+runs:
+  using: "docker"
+  image: "Dockerfile"

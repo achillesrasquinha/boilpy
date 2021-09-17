@@ -16,13 +16,11 @@ from bpyutils.util.system   	import (read, write, touch, popen, which)
 from bpyutils.util.environ  	import getenvvar
 from bpyutils.util.datetime 	import get_timestamp_str
 from bpyutils.util.imports      import import_or_raise
-from bpyutils import request as req
-from {{ cookiecutter.slug }} 		      	import (cli,
-    log, parallel
-)
-from {{ cookiecutter.slug }}._compat		import builtins, iteritems
+from bpyutils.config			import environment
+from bpyutils import request as req, log, parallel
+from {{ cookiecutter.slug }} 	import cli
+from bpyutils._compat		    import builtins, iteritems
 from {{ cookiecutter.slug }}.__attr__      	import __name__
-from {{ cookiecutter.slug }}.config			import environment
 from {{ cookiecutter.slug }}.exception      import DependencyNotFoundError
 
 logger   = log.get_logger(level = log.DEBUG)
