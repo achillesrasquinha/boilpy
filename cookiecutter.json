@@ -23,6 +23,7 @@
     "docker_service_reponame": "{{ cookiecutter.repo_service_reponame }}",
             "github_action": "n",
                        "ml": "n",
+                      "api": "n",
                    "editor": ["vscode", "other"],
                       "url": "{{ cookiecutter.repo_service }}/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}",
    "_copy_without_render": [

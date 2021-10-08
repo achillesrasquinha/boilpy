@@ -157,6 +157,18 @@ if __name__ == "__main__":
             osp.join(BASEDIR, "action.yml")
         )
 
+    if "{{ cookiecutter.api }}" == "n":
+        remove(
+            osp.join(PROJDIR, "api"),
+            osp.join(TESTDIR, "api")
+        , recursive = True)
+
+    if "{{ cookiecutter.ml }}" == "n":
+        remove(
+            osp.join(PROJDIR, ".github", "model-ci.yml"),
+            osp.join(SRCDIR, "data", "__init__.py")
+        , recursive = True)
+
     remote = "/".join([
         "{{ cookiecutter.repo_service }}",
         "{{ cookiecutter.repo_service_username }}",

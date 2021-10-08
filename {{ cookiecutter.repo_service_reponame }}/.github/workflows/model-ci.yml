@@ -1,0 +1,18 @@
+name: Model CI
+
+on: [push, pull_request]
+
+jobs:
+  train:
+    name: Train
+    runs-on: achillesrasquinha/dl
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Show ref
+        run: |
+          echo "Checking out $GITHUB_REF..."
+      - name: Install dependencies
+        run: |
+          pip install -r requirements-dev.txt
+          python setup.py develop
