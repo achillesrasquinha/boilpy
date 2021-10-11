@@ -165,8 +165,9 @@ if __name__ == "__main__":
 
     if "{{ cookiecutter.ml }}" == "n":
         remove(
-            osp.join(PROJDIR, ".github", "model-ci.yml"),
-            osp.join(SRCDIR, "data", "__init__.py")
+            osp.join(BASEDIR, ".github", "workflows", "model-ci.yml"),
+            osp.join(PROJDIR, "data", "__init__.py"),
+            osp.join(PROJDIR, "pipelines")
         , recursive = True)
 
     remote = "/".join([

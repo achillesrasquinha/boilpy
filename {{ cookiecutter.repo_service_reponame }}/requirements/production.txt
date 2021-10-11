@@ -3,4 +3,7 @@ click
 click-completion
 click-didyoumean
 {% endif %}
-bpyutils
+git+git://github.com/achillesrasquinha/bpyutils.git@develop#egg=bpyutils
+{% if cookiecutter.ml == "y" %}
+git+git://github.com/achillesrasquinha/deeply.git@develop#egg=deeply
+{% endif %}
