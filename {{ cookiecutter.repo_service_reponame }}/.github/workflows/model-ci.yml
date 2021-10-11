@@ -3,7 +3,7 @@ name: Model CI
 on: [push, pull_request]
 
 env:
-  PIP_ARGS: --use-deprecated=legacy-resolver
+  PIP_ARGS: "--use-deprecated=legacy-resolver"
 
 jobs:
   train:

@@ -133,9 +133,6 @@ else
 	$(call log,SUCCESS,Nothing to clean)
 endif
 
-console: install ## Open Console.
-	$(IPYTHON)
-
 test: install ## Run tests.
 	$(call log,INFO,Running Python Tests using $(JOBS) jobs.)
 	$(TOX) $(ARGS)

@@ -1,9 +1,5 @@
-{% if cookiecutter.cli == "click" %}
-click
+{% if cookiecutter.cli == "click" %}click
 click-completion
-click-didyoumean
-{% endif %}
+click-didyoumean{% endif %}
 git+git://github.com/achillesrasquinha/bpyutils.git@develop#egg=bpyutils
-{% if cookiecutter.ml == "y" %}
-git+git://github.com/achillesrasquinha/deeply.git@develop#egg=deeply
-{% endif %}
+{% if cookiecutter.ml == "y" %}git+git://github.com/achillesrasquinha/deeply.git@develop#egg=deeply{% endif %}
