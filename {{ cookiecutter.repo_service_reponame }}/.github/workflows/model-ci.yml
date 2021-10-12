@@ -3,7 +3,7 @@ name: Model CI
 on: [push, pull_request]
 
 env:
-  PIP_ARGS: "--use-deprecated=legacy-resolver"
+  PIP_USE_DEPRECATED: "legacy-resolver"
 
 jobs:
   train:
@@ -24,3 +24,4 @@ jobs:
       - name: Run Pipeline
         run: |
           bpyutils -m {{ cookiecutter.slug }}.data.get_data
+          bpyutils -m {{ cookiecutter.slug }}.data.preprocess_data
