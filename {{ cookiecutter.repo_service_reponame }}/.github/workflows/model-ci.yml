@@ -25,3 +25,4 @@ jobs:
         run: |
           bpyutils -m {{ cookiecutter.slug }}.data.get_data
           bpyutils -m {{ cookiecutter.slug }}.data.preprocess_data
+          bpyutils -m {{ cookiecutter.slug }}.pipelines.train
