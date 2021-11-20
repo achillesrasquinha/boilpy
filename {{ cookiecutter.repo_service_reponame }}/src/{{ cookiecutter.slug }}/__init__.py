@@ -15,14 +15,13 @@ except ImportError:
 from {{ cookiecutter.slug }}.__attr__ import (
     __name__,
     __version__,
-{% if cookiecutter.cli == "click" %}
     __build__,
-{% endif %}
 {% if cookiecutter.cli != "none" %}
     __description__,
 {% endif %}
     __author__
 )
+from {{ cookiecutter.slug }}.config      import PATH
 from {{ cookiecutter.slug }}.__main__    import main
 {% if cookiecutter.api == "y" %}
 from {{ cookiecutter.slug }}.api.client  import Client

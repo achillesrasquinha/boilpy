@@ -25,6 +25,7 @@ PIP					   ?= ${VENVBIN}pip
 PYTEST				   ?= ${VENVBIN}pytest
 TOX						= ${VENVBIN}tox
 COVERALLS			   ?= ${VENVBIN}coveralls
+DOCSTR_COVERAGE		   ?= ${VENVBIN}docstr-coverage
 IPYTHON					= ${VENVBIN}ipython
 {% if cookiecutter.jupyter %}
 JUPYTER					= ${VENVBIN}jupyter
@@ -32,6 +33,7 @@ JUPYTER					= ${VENVBIN}jupyter
 SAFETY					= ${VENVBIN}safety
 PRECOMMIT				= ${VENVBIN}pre-commit
 SPHINXBUILD				= ${VENVBIN}sphinx-build
+SPHINXAUTOBUILD			= ${VENVBIN}sphinx-autobuild
 TWINE					= ${VENVBIN}twine
 
 DOCKER_IMAGE		   ?= ${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${PROJECT}
@@ -143,6 +145,9 @@ ifeq (${ENVIRONMENT},development)
 endif
 
 	$(PYTEST) -s -n $(JOBS) --cov $(PROJDIR) $(IARGS) -vv $(ARGS)
+
+doc-coverage: install ## Display documentation coverage.
+	$(DOCSTR_COVERAGE) $(PROJDIR)
 
 ifeq (${ENVIRONMENT},development)
 	$(call browse,file:///${BASEDIR}/htmlcov/index.html)

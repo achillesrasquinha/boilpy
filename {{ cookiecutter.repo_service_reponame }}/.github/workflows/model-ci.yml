@@ -23,6 +23,4 @@ jobs:
           python setup.py develop
       - name: Run Pipeline
         run: |
-          bpyutils -m {{ cookiecutter.slug }}.data.get_data
-          bpyutils -m {{ cookiecutter.slug }}.data.preprocess_data
-          bpyutils -m {{ cookiecutter.slug }}.pipelines.train
+          bpyutils --run-ml {{ cookiecutter.slug }}

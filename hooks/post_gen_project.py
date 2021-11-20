@@ -170,6 +170,11 @@ if __name__ == "__main__":
             osp.join(PROJDIR, "pipelines")
         , recursive = True)
 
+    if "{{ cookiecutter.jupyter }}" == "n":
+        remove(
+            osp.join(BASEDIR, "docs", "notebooks")
+        , recursive = True, raise_err = False)
+
     remote = "/".join([
         "{{ cookiecutter.repo_service }}",
         "{{ cookiecutter.repo_service_username }}",

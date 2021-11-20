@@ -1,5 +1,6 @@
 sphinx
 recommonmark
+sphinx-autobuild
 {% if cookiecutter.jupyter %}
 ipykernel
 nbsphinx

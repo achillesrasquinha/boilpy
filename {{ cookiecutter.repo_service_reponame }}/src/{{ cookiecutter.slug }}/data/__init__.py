@@ -17,10 +17,10 @@ def get_data_dir(data_dir = None):
 
     return data_dir
 
-def get_data(data_dir = None):
+def get_data(data_dir = None, check = False, *args, **kwargs):
     data_dir = get_data_dir(data_dir)
     # do something ...
 
-def preprocess_data(data_dir = None):
+def preprocess_data(data_dir = None, check = False, *args, **kwargs):
     data_dir = get_data_dir(data_dir)
     # do something ...
