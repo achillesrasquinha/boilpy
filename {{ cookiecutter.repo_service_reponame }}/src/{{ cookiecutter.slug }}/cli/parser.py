@@ -1,6 +1,5 @@
 # imports - standard imports
 import sys
-import os
 import argparse
 import multiprocessing as mp
 

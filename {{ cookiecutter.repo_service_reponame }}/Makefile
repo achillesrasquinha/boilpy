@@ -116,7 +116,7 @@ ifneq (${ENVIRONMENT},test)
 	@clear
 
 	$(call log,INFO,Cleaning Python Cache)
-	@find $(BASEDIR) | grep -E "__pycache__|\.pyc" | xargs rm -rf
+	@find $(BASEDIR) | grep -E "__pycache__|\.pyc|\.egg-info" | xargs rm -rf
 
 	@rm -rf \
 		$(BASEDIR)/*.egg-info \
@@ -128,6 +128,7 @@ ifneq (${ENVIRONMENT},test)
 		$(BASEDIR)/htmlcov \
 		$(BASEDIR)/dist \
 		$(BASEDIR)/build \
+		$(BASEDIR)/*.log \
 		~/.config/$(PROJECT)
 
 	$(call log,SUCCESS,Cleaning Successful)
@@ -198,7 +199,16 @@ ifeq (${launch},true)
 	$(call browse,file:///${DOCSDIR}/build/index.html)
 endif
 
-docker-build: clean ## Build the Docker Image.
+docker-pull:
+	$(call log,INFO,Pulling latest Docker Image)
+
+	for folder in `ls ${BASEDIR}/docker/files`; do \
+		docker pull $(DOCKER_IMAGE):$$folder; \
+	done
+
+	docker pull $(DOCKER_IMAGE):latest
+
+docker-build: clean docker-pull ## Build the Docker Image.
 	$(call log,INFO,Building Docker Image)
 
 	@docker build $(BASEDIR) --tag $(DOCKER_IMAGE) $(DOCKER_BUILD_ARGS)

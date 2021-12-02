@@ -26,6 +26,7 @@
                       "api": "n",
                    "editor": ["vscode", "other"],
                       "url": "{{ cookiecutter.repo_service }}/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}",
+              "singularity": "n",
    "_copy_without_render": [
       ".github/workflows/ci.yml"
    ]

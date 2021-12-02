@@ -38,4 +38,4 @@ jobs:
           python setup.py develop
       - name: Run Jobs
         run: |
-          python -c "import {{ cookiecutter.slug }}; {{ cookiecutter.slug }}.run_all_jobs()"
+          bpyutils --run-jobs {{ cookiecutter.slug }}.jobs

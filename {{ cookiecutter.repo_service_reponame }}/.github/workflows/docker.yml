@@ -13,7 +13,7 @@ env:
   PROJECT: {% raw %}${{ github.event.repository.name }}{% endraw %}
 
 jobs:
-  build:
+  build-docker:
     name: Build
     runs-on: ubuntu-latest
       
@@ -31,3 +31,28 @@ jobs:
       - name: Push Image
         run: |
           make docker-push
+{% if cookiecutter.singularity == "y" %}
+  build-singularity:
+    needs:
+      - build-docker
+
+    name: Build Singularity
+    runs-on: ubuntu-latest
+
+    container:
+      image: quay.io/singularity/docker2singularity
+      options: --privileged
+    
+    steps:
+      - name: Build SIF File
+        run: |
+          DOCKER_IMAGE="${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${PROJECT}"
+          SINGULARITY_IMAGE="$(echo -n ${DOCKER_IMAGE} | tr -c '[:alnum:].' '-').sif"
+
+          docker-entrypoint.sh /docker2singularity.sh \
+            --name ${SINGULARITY_IMAGE} \
+             ${DOCKER_IMAGE}
+
+          echo ${GITHUB_TOKEN} | singularity remote login -u ${DOCKER_USERNAME} --password-stdin oras://${DOCKER_REGISTRY}
+          singularity push /output/${SINGULARITY_IMAGE} oras://${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${PROJECT}:singularity
+{% endif %}
