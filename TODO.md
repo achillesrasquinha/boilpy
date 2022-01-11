@@ -9,3 +9,7 @@
 - [ ] `on_complete` to train pipeline
 - [ ] Add lint to Makefile
 - [ ] Remove _compat from module
+- [x] Check if docker/files exists.
+- [ ] Check `SRCDIR` within docs (bpyutils)
+- [ ] Check LICENSE formatting in Markdown.
+- [x] Add tox wildcard.

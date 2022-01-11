@@ -37,6 +37,7 @@ SPHINXAUTOBUILD			= ${VENVBIN}sphinx-autobuild
 TWINE					= ${VENVBIN}twine
 
 DOCKER_IMAGE		   ?= ${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${PROJECT}
+DOCKER_BUILDKIT		   ?= 1
 
 {% if cookiecutter.sqlite %}
 SQLITE				   ?= sqlite
@@ -199,17 +200,25 @@ ifeq (${launch},true)
 	$(call browse,file:///${DOCSDIR}/build/index.html)
 endif
 
-docker-pull:
+docker-pull: ## Pull Latest Docker Images
 	$(call log,INFO,Pulling latest Docker Image)
 
-	for folder in `ls ${BASEDIR}/docker/files`; do \
-		docker pull $(DOCKER_IMAGE):$$folder; \
-	done
+	if [[ -d "${BASEDIR}/docker/files" ]]; then \
+		for folder in `ls ${BASEDIR}/docker/files`; do \
+			docker pull $(DOCKER_IMAGE):$$folder || true; \
+		done; \
+	fi
 
-	docker pull $(DOCKER_IMAGE):latest
+	@docker pull $(DOCKER_IMAGE):latest || true
 
 docker-build: clean docker-pull ## Build the Docker Image.
 	$(call log,INFO,Building Docker Image)
+
+	if [[ -d "${BASEDIR}/docker/files" ]]; then \
+		for folder in `ls ${BASEDIR}/docker/files`; do \
+			docker build ${BASEDIR}/docker/files/$$folder --tag $(DOCKER_IMAGE):$$folder $(DOCKER_BUILD_ARGS) ; \
+		done \
+	fi
 
 	@docker build $(BASEDIR) --tag $(DOCKER_IMAGE) $(DOCKER_BUILD_ARGS)
 
