@@ -1,1 +1,11 @@
 .git
+.venv
+.vscode
+ci
+docker/{{ cookiecutter.command }}
+.appveyor.yml
+.env
+.gitignore
+.releasrc
+.travis.yml
+Makefile

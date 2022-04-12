@@ -185,3 +185,11 @@ if __name__ == "__main__":
 
     if not osp.exists(osp.join(BASEDIR, ".git")):
         setup_git_repo(BASEDIR, remote = remote, commit = True)
+
+    os.rename(osp.join(BASEDIR, ".env-template"), ".env")
+
+    if "{{ cookiecutter.ros }}" == "n":
+        remove(
+            osp.join(BASEDIR, "CMakeLists.txt"),
+            osp.join(BASEDIR, "package.xml")
+        )

@@ -81,13 +81,19 @@ endif
 info: ## Display Information
 	@echo "Python Environment: ${PYTHON_ENVIRONMENT}"
 
+upgrade-tools: # Upgrade pip, setuptools, wheel to latest
+ifneq (${VERBOSE},true)
+	$(eval OUT = > /dev/null)
+endif
+	$(PIP) install --upgrade pip setuptools wheel $(OUT)
+
 requirements: ## Build Requirements
 	$(call log,INFO,Building Requirements)
 	@find $(BASEDIR)/requirements -maxdepth 1 -type f | grep -v 'jobs' | xargs awk '{print}' > $(BASEDIR)/requirements-dev.txt
 	@find $(BASEDIR)/requirements -maxdepth 1 -type f | xargs awk '{print}' > $(BASEDIR)/requirements-jobs.txt
 	@cat $(BASEDIR)/requirements/production.txt  > $(BASEDIR)/requirements.txt
 
-install: clean info requirements ## Install dependencies and module.
+install: clean info upgrade-tools requirements ## Install dependencies and module.
 ifneq (${VERBOSE},true)
 	$(eval OUT = > /dev/null)
 endif
@@ -103,11 +109,14 @@ else
 	$(PIP) install -r $(BASEDIR)/requirements-dev.txt  $(PIP_ARGS) $(OUT)
 endif
 
+# https://blog.ganssle.io/articles/2021/10/setup-py-deprecated.html#summary
+# setup.py install is deprecated.
 	$(call log,INFO,Installing ${PROJECT} (${ENVIRONMENT}))
 ifeq (${ENVIRONMENT},development)
-	$(PYTHON) setup.py develop $(OUT)
+
+	$(PIP) install -e $(BASEDIR) $(OUT)
 else
-	$(PYTHON) setup.py install $(OUT)
+	$(PIP) install $(BASEDIR) $(OUT)
 endif
 
 	$(call log,SUCCESS,Installation Successful)

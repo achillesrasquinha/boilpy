@@ -12,12 +12,12 @@ env:
   VERBOSE: true
   TERM: xterm
 
-  {{ cookiecutter.slug.upper() }}_JOBS_GITHUB_USERNAME: {{ cookiecutter.repo_service_username }}
+  {{ cookiecutter.slug.upper() }}_JOBS_GITHUB_USERNAME: {% raw %}${{ github.actor }}{% endraw %}
   {{ cookiecutter.slug.upper() }}_JOBS_GITHUB_OAUTH_TOKEN: {% raw %}${{ secrets.{% endraw %}{{ cookiecutter.slug.upper() }}_JOBS_GITHUB_OAUTH_TOKEN }}
 
 jobs:
   jobs:
-    name: Test
+    name: Jobs
     runs-on: ubuntu-latest
     
     steps:
