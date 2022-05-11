@@ -1,5 +1,7 @@
 .PHONY: shell test help requirements
 
+SHELL				   := /bin/bash
+
 BASEDIR					= $(shell pwd)
 -include ${BASEDIR}/.env
 
@@ -223,16 +225,18 @@ docker-pull: ## Pull Latest Docker Images
 docker-build: clean docker-pull ## Build the Docker Image.
 	$(call log,INFO,Building Docker Image)
 
+	@[[ -f "${BASEDIR}/docker-compose.yml" ]] && docker-compose build
+
 	if [[ -d "${BASEDIR}/docker/files" ]]; then \
 		for folder in `ls ${BASEDIR}/docker/files`; do \
 			docker build ${BASEDIR}/docker/files/$$folder --tag $(DOCKER_IMAGE):$$folder $(DOCKER_BUILD_ARGS) ; \
 		done \
 	fi
 
-	@docker build $(BASEDIR) --tag $(DOCKER_IMAGE) $(DOCKER_BUILD_ARGS)
+	@[[ -f "${BASEDIR}/Dockerfile" ]] && docker build $(BASEDIR) --tag $(DOCKER_IMAGE) $(DOCKER_BUILD_ARGS)
 
 docker-push: ## Push Docker Image to Registry.
-	@docker push $(DOCKER_IMAGE)$(DOCKER_IMAGE_TAG)
+	@docker push $(DOCKER_IMAGE) --all-tags
 
 docker-tox: clean ## Test using Docker Tox Image.
 	$(call log,INFO,Running Tests using Docker Tox)

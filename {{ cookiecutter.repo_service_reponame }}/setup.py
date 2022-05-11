@@ -11,6 +11,10 @@ from setuptools import setup, find_packages
 from setuptools.command.develop import develop
 from setuptools.command.install import install
 
+{% if cookiecutter.ros %}
+from catkin_pkg.python_setup import generate_distutils_setup
+{% endif %}
+
 # import pip
 
 # try:
@@ -108,7 +112,7 @@ class InstallCommand(install):
         install.run(self)
         remove_cache()
         
-setup(
+metadata = dict(
     name                 = PKGINFO["__name__"],
     version              = PKGINFO["__version__"],
     url                  = PKGINFO["__url__"],
@@ -162,3 +166,9 @@ setup(
         "develop": DevelopCommand
     }
 )
+
+{% if cookiecutter.ros %}
+metadata = generate_distutils_setup(**metadata)
+{% endif %}
+
+setup(**metadata)
