@@ -45,7 +45,7 @@
 $ pip install {{ cookiecutter.name.lower().replace(' ', '-') }}
 ```
 
-Check out [installation](docs/source/installation.md) for more details.
+Check out [installation](docs/source/install.rst) for more details.
 
 ### Usage
 
@@ -73,6 +73,18 @@ Commands:
   version  Show version and exit.
 ```
 {% endif %}
+
+### Docker
+
+Using `{{ cookiecutter.slug }}'s` Docker Image can be done as follows:
+
+```
+$ docker run \
+    --rm \
+    -it \
+    {{ cookiecutter.docker_service_username }}/{{ cookiecutter.docker_service_reponame }} \
+      --verbose
+```
 
 ### License
 
