@@ -1,6 +1,6 @@
 .PHONY: shell test help requirements
 
-SHELL				   := /bin/bash
+# SHELL				   := /bin/bash
 
 BASEDIR					= $(shell pwd)
 -include ${BASEDIR}/.env
@@ -59,7 +59,7 @@ define log
 	$(eval BULLET 	 = "→")
 	$(eval TIMESTAMP = $(shell date +%H:%M:%S))
 
-	@echo "${BULLET} ${$1}[${TIMESTAMP}]${CLEAR} ${BOLD}$2${CLEAR}"
+	@printf "${BULLET} ${$1}[${TIMESTAMP}]${CLEAR} ${BOLD}$2${CLEAR}\n"
 endef
 
 define browse
@@ -159,6 +159,10 @@ endif
 
 	$(PYTEST) -s -n $(JOBS) --cov $(PROJDIR) $(IARGS) -vv $(ARGS)
 
+ifeq (${ENVIRONMENT},development)
+	$(call browse,file:///${BASEDIR}/htmlcov/index.html)
+endif
+
 doc-coverage: install ## Display documentation coverage.
 	$(DOCSTR_COVERAGE) $(PROJDIR)
 
@@ -222,7 +226,7 @@ docker-pull: ## Pull Latest Docker Images
 
 	@docker pull $(DOCKER_IMAGE):latest || true
 
-docker-build: clean docker-pull ## Build the Docker Image.
+docker-build: clean docker-pull requirements ## Build the Docker Image.
 	$(call log,INFO,Building Docker Image)
 
 	@[[ -f "${BASEDIR}/docker-compose.yml" ]] && docker-compose build

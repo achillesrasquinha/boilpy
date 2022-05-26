@@ -12,13 +12,15 @@ RUN apk add --no-cache \
     && mkdir -p ${{ envvar }}_PATH
 
 COPY . ${{ envvar }}_PATH
-COPY ./docker/entrypoint.sh /entrypoint.sh
+COPY ./docker/entrypoint.sh /entrypoint
+RUN sed -i 's/\r//' /entrypoint \
+	&& chmod +x /entrypoint
 
 WORKDIR ${{ envvar }}_PATH
 
 RUN pip install -r ./requirements.txt && \
     python setup.py install
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint"]
 
 CMD ["{{ cookiecutter.command }}"]

@@ -1,27 +1,16 @@
 # imports - compatibility imports
 from __future__ import absolute_import
 
-# imports - standard imports
-import sys, os
-import re
-import json
-import multiprocessing as mp
-from   functools import partial
-import traceback
-
 from {{ cookiecutter.slug }}.commands.util 	import cli_format
-from bpyutils.util.array    	import flatten, sequencify
 from bpyutils.util._dict        import merge_dict
-from bpyutils.util.system   	import (read, write, touch, popen, which)
-from bpyutils.util.environ  	import getenvvar
-from bpyutils.util.datetime 	import get_timestamp_str
-from bpyutils.util.imports      import import_or_raise
+from bpyutils.util.system   	import (touch)
+from bpyutils.util.error        import pretty_print_error
 from bpyutils.config			import environment
-from bpyutils import request as req, log, parallel
+from bpyutils.exception         import DependencyNotFoundError
+from bpyutils import log
 from {{ cookiecutter.slug }} 	import cli
-from bpyutils._compat		    import builtins, iteritems
-from {{ cookiecutter.slug }}.__attr__      	import __name__
-from {{ cookiecutter.slug }}.exception      import DependencyNotFoundError
+from bpyutils._compat		    import iteritems
+from {{ cookiecutter.slug }}.__attr__ import __name__
 
 logger   = log.get_logger(level = log.DEBUG)
 
@@ -46,8 +35,7 @@ def command(**ARGUMENTS):
         if not isinstance(e, DependencyNotFoundError):
             cli.echo()
 
-            traceback_str = traceback.format_exc()
-            cli.echo(traceback_str)
+            pretty_print_error(e)
 
             cli.echo(cli_format("""\
 An error occured while performing the above command. This could be an issue with

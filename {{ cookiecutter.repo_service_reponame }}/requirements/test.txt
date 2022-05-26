@@ -2,6 +2,7 @@ pytest
 pytest-cov
 pytest-xdist
 pytest-sugar
+pytest-clarity; python_version >= '3.6'
 tox
 coveralls
 pluggy<1,>=0.12.0

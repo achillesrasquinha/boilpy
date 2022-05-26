@@ -11,7 +11,7 @@ from setuptools import setup, find_packages
 from setuptools.command.develop import develop
 from setuptools.command.install import install
 
-{% if cookiecutter.ros %}
+{% if cookiecutter.ros == "y" %}
 from catkin_pkg.python_setup import generate_distutils_setup
 {% endif %}
 
@@ -167,7 +167,7 @@ metadata = dict(
     }
 )
 
-{% if cookiecutter.ros %}
+{% if cookiecutter.ros == "y" %}
 metadata = generate_distutils_setup(**metadata)
 {% endif %}
 
