@@ -239,6 +239,11 @@ docker-build: clean docker-pull requirements ## Build the Docker Image.
 
 	@[[ -f "${BASEDIR}/Dockerfile" ]] && docker build $(BASEDIR) --tag $(DOCKER_IMAGE) $(DOCKER_BUILD_ARGS)
 
+docker-test: clean ## Testing within Docker Image.
+	$(call log,INFO,Building Docker Image)
+	
+	@docker run --rm -it $(DOCKER_IMAGE) "tox"
+
 docker-push: ## Push Docker Image to Registry.
 	@docker push $(DOCKER_IMAGE) --all-tags
 
