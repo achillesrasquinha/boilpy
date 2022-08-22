@@ -3,12 +3,6 @@
 
 Release v\ |version|. (:ref:`Installation <install:>`)
 
-.. image:: https://img.shields.io/travis/achillesrasquinha/ccapi.svg?style=flat-square
-    :target: https://travis-ci.org/achillesrasquinha/ccapi
-    
-.. image:: https://img.shields.io/appveyor/ci/achillesrasquinha/ccapi.svg?style=flat-square&logo=appveyor
-    :target: https://ci.appveyor.com/project/achillesrasquinha/ccapi
-
 .. image:: https://img.shields.io/coveralls/github/achillesrasquinha/ccapi.svg?style=flat-square
     :target: https://coveralls.io/github/achillesrasquinha/ccapi
 

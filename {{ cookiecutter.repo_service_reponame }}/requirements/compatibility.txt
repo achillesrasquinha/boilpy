@@ -1,1 +1,0 @@
-{% if cookiecutter.compat == "six" %}six{% endif %}

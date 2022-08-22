@@ -7,5 +7,4 @@ docker/{{ cookiecutter.command }}
 .env
 .gitignore
 .releasrc
-.travis.yml
 Makefile

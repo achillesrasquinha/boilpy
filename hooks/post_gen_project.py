@@ -116,12 +116,6 @@ if __name__ == "__main__":
             osp.join(TESTDIR, "util")
         , recursive = True)
 
-    if "{{ cookiecutter.compat }}"  != "custom":
-        remove(
-            osp.join(PROJDIR, "_compat.py"),
-            osp.join(TESTDIR, "test__compat.py")
-        )
-
     if "{{ cookiecutter.compat }}"  == "none":
         remove(osp.join(BASEDIR, "requirements", "compatibility.txt"))
     
@@ -141,16 +135,6 @@ if __name__ == "__main__":
 
     if "{{ cookiecutter.editor }}" == "other":
         remove(osp.join(BASEDIR, ".vscode"), recursive = True)
-
-    if "{{ cookiecutter.travis }}" == "n":
-        remove(
-            osp.join(BASEDIR, ".travis.yml")
-        )
-
-    if "{{ cookiecutter.appveyor }}" == "n":
-        remove(
-            osp.join(BASEDIR, "appveyor.yml")
-        )
 
     if "{{ cookiecutter.github_action }}" == "n":
         remove(

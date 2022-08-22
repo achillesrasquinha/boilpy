@@ -9,7 +9,6 @@ default_context:
   jupyter: "{{ cookiecutter.jupyter }}"
   sqlite: "{{ cookiecutter.sqlite }}"
   pypy: "{{ cookiecutter.pypy }}"
-  travis: "{{ cookiecutter.travis }}"
   appveyor: "{{ cookiecutter.appveyor }}"
   description: "{{ cookiecutter.description }}"
   author: "{{ cookiecutter.author }}"
