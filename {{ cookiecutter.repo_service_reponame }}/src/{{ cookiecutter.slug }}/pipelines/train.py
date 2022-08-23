@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from {{ cookiecutter.slug }}.__attr__ import __name__ as NAME
 from {{ cookiecutter.slug }}.data import get_data_dir
 

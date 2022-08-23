@@ -3,7 +3,6 @@
 .vscode
 ci
 docker/{{ cookiecutter.command }}
-.appveyor.yml
 .env
 .gitignore
 .releasrc
