@@ -25,8 +25,12 @@ jobs:
       - name: Login to Registry
         run: |
           echo $GITHUB_TOKEN | docker login $DOCKER_REGISTRY -u $DOCKER_USERNAME --password-stdin
+      - name: Pull latest image
+        run: |
+          make docker-pull
       - name: Build Image
         run: |
+          export DOCKER_TAG=${GITHUB_REF##*/}
           make docker-build
       - name: Push Image
         run: |

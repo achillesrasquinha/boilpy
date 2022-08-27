@@ -41,3 +41,10 @@ def get_version_str():
     version = "%s%s" % (__version__, " (%s)" % __build__ if __build__ else "")
     return version
 {% endif %}
+
+{% if cookiecutter.ml == "y" %}
+import deeply
+
+dops = deeply.ops.service("wandb")
+dops.init("{{ cookiecutter.slug }}")
+{% endif %}

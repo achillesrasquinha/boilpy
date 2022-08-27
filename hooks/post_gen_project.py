@@ -4,6 +4,9 @@ import subprocess
 
 PY2 = sys.version_info.major == 2
 
+git_username = "boilpy bot"
+git_email    = "achillesrasquinha@gmail.com"
+
 def iteritems(dict_, **kwargs):
     if PY2:
         iterator = dict_.iteritems()
@@ -81,6 +84,10 @@ def setup_git_repo(path, remote = None, commit = False):
 
     if commit:
         popen("git add .")
+        
+        popen("git config --global user.name  %s" % git_username)
+        popen("git config --global user.email %s" % git_email)
+
         popen("git commit -m 'Initial Commit'", cwd = path, output = False)
 
         popen("git checkout -B develop --track master", cwd = path, output = False)

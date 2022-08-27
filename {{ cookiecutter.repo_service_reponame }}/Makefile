@@ -29,14 +29,18 @@ TOX						= ${VENVBIN}tox
 COVERALLS			   ?= ${VENVBIN}coveralls
 DOCSTR_COVERAGE		   ?= ${VENVBIN}docstr-coverage
 IPYTHON					= ${VENVBIN}ipython
+PYLINT					= ${VENVBIN}pylint
 {% if cookiecutter.jupyter %}
 JUPYTER					= ${VENVBIN}jupyter
 {% endif %}
+DOCKER_COMPOSE			= ${VENVBIN}docker-compose
 SAFETY					= ${VENVBIN}safety
 PRECOMMIT				= ${VENVBIN}pre-commit
 SPHINXBUILD				= ${VENVBIN}sphinx-build
 SPHINXAUTOBUILD			= ${VENVBIN}sphinx-autobuild
 TWINE					= ${VENVBIN}twine
+
+DOCKER_TAG			   ?= latest
 
 DOCKER_IMAGE		   ?= ${DOCKER_REGISTRY}/${DOCKER_USERNAME}/${PROJECT}
 DOCKER_BUILDKIT		   ?= 1
@@ -175,6 +179,8 @@ ifeq (${ENVIRONMENT},test)
 endif
 
 shell: install ## Launch an IPython shell.
+	clear
+	
 	$(call log,INFO,Launching Python Shell)
 	$(IPYTHON) \
 		--no-banner
@@ -229,7 +235,9 @@ docker-pull: ## Pull Latest Docker Images
 docker-build: clean docker-pull requirements ## Build the Docker Image.
 	$(call log,INFO,Building Docker Image)
 
-	@[[ -f "${BASEDIR}/docker-compose.yml" ]] && docker-compose build
+	if [[ -f "${BASEDIR}/docker-compose.yml" ]]; then \
+		$(DOCKER_COMPOSE) build; \
+	fi
 
 	if [[ -d "${BASEDIR}/docker/files" ]]; then \
 		for folder in `ls ${BASEDIR}/docker/files`; do \
@@ -237,12 +245,12 @@ docker-build: clean docker-pull requirements ## Build the Docker Image.
 		done \
 	fi
 
-	@[[ -f "${BASEDIR}/Dockerfile" ]] && docker build $(BASEDIR) --tag $(DOCKER_IMAGE) $(DOCKER_BUILD_ARGS)
+	@[[ -f "${BASEDIR}/Dockerfile" ]] && docker build $(BASEDIR) --tag $(DOCKER_IMAGE):$(DOCKER_TAG) $(DOCKER_BUILD_ARGS)
 
 docker-test: clean ## Testing within Docker Image.
 	$(call log,INFO,Building Docker Image)
 	
-	@docker run --rm -it $(DOCKER_IMAGE) "tox"
+	@docker run --rm -it $(DOCKER_IMAGE):$(DOCKER_TAG) "tox"
 
 docker-push: ## Push Docker Image to Registry.
 	@docker push $(DOCKER_IMAGE) --all-tags
@@ -281,6 +289,9 @@ start: ## Start app.
 notebooks: ## Launch Notebooks
 	$(JUPYTER) notebook --notebook-dir $(NOTEBOOKSDIR) $(ARGS)
 {% endif %}
+
+lint: ## Perform Lint
+	$(PYLINT) $(PROJDIR) --output-format=colorized
 
 help: ## Show help and exit.
 	@awk 'BEGIN {FS = ":.*?## "} /^[a-zA-Z_-]+:.*?## / {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
