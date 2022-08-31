@@ -1,8 +1,9 @@
 import os, os.path as osp
 
-from bpyutils.util.system  import remove, popen
-from bpyutils.util.environ import getenv
-from bpyutils.util.git import setup_git_repo
+from bpyutils.util.system   import remove, popen
+from bpyutils.util.environ  import getenv
+from bpyutils.util.git      import setup_git_repo
+from bpyutils.api.github    import GitHub
 
 GIT_USERNAME = "boilpy bot"
 GIT_EMAIL    = "achillesrasquinha@gmail.com"
@@ -95,10 +96,17 @@ if __name__ == "__main__":
             osp.join(BASEDIR, "package.xml")
         )
 
-    if not osp.exists(osp.join(BASEDIR, ".git")):
-        setup_git_repo(BASEDIR, remote = remote, commit = True,
-            git_username = GIT_USERNAME, git_email = GIT_EMAIL)
-
     token = getenv("GITHUB_TOKEN", prefix = None, raise_err = False)
     if token:
-        pass
+        github_username = "{{ cookiecutter.repo_service_username }}"
+        github_reponame = "{{ cookiecutter.repo_service_reponame }}"
+
+        github = GitHub(token = token)
+        github.repo(github_username, github_reponame, create = True,
+            description = "{{ cookiecutter.description }}",
+            homepage    = "{{ cookiecutter.url }}"
+        )
+
+    if not osp.exists(osp.join(BASEDIR, ".git")):
+        setup_git_repo(BASEDIR, remote = remote, commit = True,
+            push = True, git_username = GIT_USERNAME, git_email = GIT_EMAIL)
