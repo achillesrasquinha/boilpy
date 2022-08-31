@@ -31,6 +31,9 @@
 * [Features](#features)
 * [Quick Start](#quick-start)
 * [Usage](#usage)
+  * [Application Interface](#application-interface)
+  * [Command-Line Interface](#command-line-interface)
+* [FAQ](docs/faq.md)
 * [License](#license)
 
 ### Features
@@ -79,7 +82,7 @@ Using `{{ cookiecutter.slug }}'s` Docker Image can be done as follows:
 $ docker run \
     --rm \
     -it \
-    {{ cookiecutter.docker_service_username }}/{{ cookiecutter.docker_service_reponame }} \
+    {{ cookiecutter.docker_registry }}/{{ cookiecutter.docker_service_username }}/{{ cookiecutter.docker_service_reponame }} \
       --verbose
 ```
 

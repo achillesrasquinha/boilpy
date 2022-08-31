@@ -1,98 +1,11 @@
-import sys, os, os.path as osp
-import shutil
-import subprocess
+import os, os.path as osp
 
-PY2 = sys.version_info.major == 2
+from bpyutils.util.system  import remove, popen
+from bpyutils.util.environ import getenv
+from bpyutils.util.git import setup_git_repo
 
-git_username = "boilpy bot"
-git_email    = "achillesrasquinha@gmail.com"
-
-def iteritems(dict_, **kwargs):
-    if PY2:
-        iterator = dict_.iteritems()
-    else:
-        iterator = iter(dict_.items(), **kwargs)
-    return iterator
-
-def remove(*paths, recursive = False, raise_err = True):
-    for path in paths:
-        path = osp.abspath(path)
-
-        if osp.isdir(path):
-            if recursive:
-                shutil.rmtree(path)
-            else:
-                if raise_err:
-                    raise OSError("{path} is a directory.".format(
-                        path = path
-                    ))
-        else:
-            try:
-                os.remove(path)
-            except OSError:
-                if raise_err:
-                    raise
-
-def popen(*args, **kwargs):
-    output      = kwargs.get("output", True)
-    directory   = kwargs.get("cwd")
-    environment = kwargs.get("env")
-    shell       = kwargs.get("shell", True)
-    raise_err   = kwargs.get("raise_err", True)
-
-    environ     = os.environ.copy()
-    if environment:
-        environ.update(environment)
-
-    for k, v in iteritems(environ):
-        environ[k] = str(v)
-
-    command     = " ".join([str(arg) for arg in args])
-    
-    proc        = subprocess.Popen(command,
-        stdin   = None if output else subprocess.PIPE,
-        stdout  = None if output else subprocess.PIPE,
-        stderr  = None if output else subprocess.PIPE,
-        env     = environ,
-        cwd     = directory,
-        shell   = shell
-    )
-
-    code        = proc.wait()
-
-    if code and raise_err:
-        raise subprocess.CalledProcessError(code, command)
-
-    if output:
-        output, error = proc.communicate()
-
-        if output:
-            output = output.decode("utf-8")
-
-        if error:
-            error  = error.decode("utf-8")
-
-        return code, output, error
-    else:
-        return code
-
-def setup_git_repo(path, remote = None, commit = False):
-    popen("git init", cwd = path, output = False)
-
-    if remote:
-        popen("git remote add origin", remote,  cwd = path, output = False)
-
-    if commit:
-        popen("git add .")
-        
-        popen("git config --global user.name  %s" % git_username)
-        popen("git config --global user.email %s" % git_email)
-
-        popen("git commit -m 'Initial Commit'", cwd = path, output = False)
-
-        popen("git checkout -B develop --track master", cwd = path, output = False)
-        popen("git checkout -B hotfix  --track master", cwd = path, output = False)
-        popen("git checkout master", cwd = path, output = False)
+GIT_USERNAME = "boilpy bot"
+GIT_EMAIL    = "achillesrasquinha@gmail.com"
 
 BASEDIR = osp.realpath(osp.curdir)
 SRCDIR  = osp.join(BASEDIR, "src")
@@ -174,9 +87,6 @@ if __name__ == "__main__":
 
     popen("make requirements", cwd = BASEDIR, output = False)
 
-    if not osp.exists(osp.join(BASEDIR, ".git")):
-        setup_git_repo(BASEDIR, remote = remote, commit = True)
-
     os.rename(osp.join(BASEDIR, ".env-template"), ".env")
 
     if "{{ cookiecutter.ros }}" == "n":
@@ -184,3 +94,11 @@ if __name__ == "__main__":
             osp.join(BASEDIR, "CMakeLists.txt"),
             osp.join(BASEDIR, "package.xml")
         )
+
+    if not osp.exists(osp.join(BASEDIR, ".git")):
+        setup_git_repo(BASEDIR, remote = remote, commit = True,
+            git_username = GIT_USERNAME, git_email = GIT_EMAIL)
+
+    token = getenv("GITHUB_TOKEN", prefix = None, raise_err = False)
+    if token:
+        pass
