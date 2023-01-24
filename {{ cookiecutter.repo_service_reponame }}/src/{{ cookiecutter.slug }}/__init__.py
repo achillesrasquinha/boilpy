@@ -29,7 +29,9 @@ from {{ cookiecutter.slug }}.api.client  import Client
 from bpyutils.cache       import Cache
 from bpyutils.config      import Settings
 from bpyutils.util.jobs   import run_all as run_all_jobs, run_job
+from bpyutils import log
 
+logger   = log.get_logger(__name__)
 
 cache = Cache(dirname = __name__)
 cache.create()
@@ -43,8 +45,11 @@ def get_version_str():
 {% endif %}
 
 {% if cookiecutter.ml == "y" %}
-import deeply
+try:
+    import deeply
 
-dops = deeply.ops.service("wandb")
-dops.init("{{ cookiecutter.slug }}")
+    dops = deeply.ops.service("wandb")
+    dops.init("{{ cookiecutter.slug }}")
+except ImportError:
+    logger.warning("wandb not available")
 {% endif %}

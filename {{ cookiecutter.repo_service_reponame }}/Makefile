@@ -13,7 +13,7 @@ PROJDIR					= ${BASEDIR}/src/{{ cookiecutter.slug }}
 TESTDIR					= ${BASEDIR}/tests
 DOCSDIR					= ${BASEDIR}/docs
 {% if cookiecutter.jupyter %}
-NOTEBOOKSDIR			= ${DOCSDIR}/source/notebooks
+NOTEBOOKSDIR		   ?= ${DOCSDIR}/source/notebooks
 {% endif %}
 
 PYTHONPATH		 	   ?= python
@@ -220,6 +220,10 @@ endif
 ifeq (${launch},true)
 	$(call browse,file:///${DOCSDIR}/build/index.html)
 endif
+
+docs-serve:
+	$(call log,INFO,Serving Documentation)
+	$(SPHINXAUTOBUILD) $(DOCSDIR)/source $(DOCSDIR)/build
 
 docker-pull: ## Pull Latest Docker Images
 	$(call log,INFO,Pulling latest Docker Image)

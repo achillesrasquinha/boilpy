@@ -130,7 +130,7 @@ metadata = dict(
     entry_points         = {
         "console_scripts": [
             "%s = %s.__main__:main" % (
-                PKGINFO["__command__"] if hasattr(PKGINFO, "__command__") else PKGINFO["__name__"],
+                PKGINFO["__command__"] if "__command__" in PKGINFO else PKGINFO["__name__"],
                 PACKAGE
             )
         ]

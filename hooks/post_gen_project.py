@@ -93,8 +93,10 @@ if __name__ == "__main__":
     if "{{ cookiecutter.ros }}" == "n":
         remove(
             osp.join(BASEDIR, "CMakeLists.txt"),
-            osp.join(BASEDIR, "package.xml")
-        )
+            osp.join(BASEDIR, "package.xml"),
+            osp.join(BASEDIR, "launch"),
+            osp.join(BASEDIR, "msg")
+        , recursive = True, raise_err = False)
 
     token = getenv("GITHUB_TOKEN", prefix = None, raise_err = False)
     if token:

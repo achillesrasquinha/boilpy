@@ -1,10 +1,13 @@
+{% if cookiecutter.cli == "click" %}
 from bpyutils.util.array   import sequencify
 from bpyutils.util.imports import import_handler
+{% endif %}
 
 # imports - module imports
 from {{ cookiecutter.slug }}.cli.parser import get_args
 from {{ cookiecutter.slug }} import cli
 
+{% if cookiecutter.cli == "click" %}
 def group_commands(group, commands):
     """
     Add command-paths to a click.Group
@@ -28,6 +31,7 @@ def group_commands(group, commands):
         group.add_command(command)
     
     return group
+{% endif %}
 
 def cli_format(string, type_):
     args = get_args(as_dict = False)

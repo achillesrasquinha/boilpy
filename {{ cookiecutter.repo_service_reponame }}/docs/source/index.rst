@@ -1,7 +1,7 @@
 {{ cookiecutter.name }}
 ===
 
-Release v\ |version|. (:ref:`Installation <install:>`)
+Release v\ |version|. (:ref:`Installation <install>`)
 
 .. image:: https://img.shields.io/coveralls/github/achillesrasquinha/ccapi.svg?style=flat-square
     :target: https://coveralls.io/github/achillesrasquinha/ccapi
