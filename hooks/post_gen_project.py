@@ -1,9 +1,9 @@
 import os, os.path as osp
 
-from bpyutils.util.system   import remove, popen
-from bpyutils.util.environ  import getenv
-from bpyutils.util.git      import setup_git_repo
-from bpyutils.api.github    import GitHub
+from upyog.util.system   import remove, popen
+from upyog.util.environ  import getenv
+from upyog.util.git      import setup_git_repo
+from upyog.api.github    import GitHub
 
 GIT_USERNAME = "boilpy bot"
 GIT_EMAIL    = "achillesrasquinha@gmail.com"
@@ -111,4 +111,4 @@ if __name__ == "__main__":
 
     if not osp.exists(osp.join(BASEDIR, ".git")):
         setup_git_repo(BASEDIR, remote = remote, commit = True,
-            push = True, git_username = GIT_USERNAME, git_email = GIT_EMAIL)
+            push = token, git_username = GIT_USERNAME, git_email = GIT_EMAIL)
