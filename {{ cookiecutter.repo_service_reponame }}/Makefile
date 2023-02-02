@@ -221,7 +221,7 @@ ifeq (${launch},true)
 	$(call browse,file:///${DOCSDIR}/build/index.html)
 endif
 
-docs-serve:
+docs-serve: install ## Serve Documentation
 	$(call log,INFO,Serving Documentation)
 	$(SPHINXAUTOBUILD) $(DOCSDIR)/source $(DOCSDIR)/build
 
