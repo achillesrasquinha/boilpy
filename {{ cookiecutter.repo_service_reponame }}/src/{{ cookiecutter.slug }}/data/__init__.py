@@ -3,8 +3,8 @@ import os.path as osp
 from {{ cookiecutter.slug }}.config import PATH
 from {{ cookiecutter.slug }} import __name__ as NAME
 
-from bpyutils.util.environ import getenv
-from bpyutils.util.system  import makedirs
+from upyog.util.environ import getenv
+from upyog.util.system  import makedirs
 
 _PREFIX = NAME.upper()
 

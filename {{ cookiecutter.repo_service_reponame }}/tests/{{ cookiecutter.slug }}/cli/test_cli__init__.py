@@ -1,10 +1,10 @@
 # imports - compatibility imports
-from bpyutils._compat import iteritems, iterkeys
+from upyog._compat import iteritems, iterkeys
 
 # imports - module imports
 from {{ cookiecutter.slug }} import cli
 from {{ cookiecutter.slug }}.cli import get_args
-from bpyutils.util._dict import merge_dict
+from upyog.util._dict import merge_dict
 
 def test_command():
     def _assert_command(values, override = dict(), initial = dict()):

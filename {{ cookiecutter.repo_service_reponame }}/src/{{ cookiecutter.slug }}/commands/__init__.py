@@ -2,14 +2,14 @@
 from __future__ import absolute_import
 
 from {{ cookiecutter.slug }}.commands.util 	import cli_format
-from bpyutils.util._dict        import merge_dict
-from bpyutils.util.system   	import (touch)
-from bpyutils.util.error        import pretty_print_error
-from bpyutils.config			import environment
-from bpyutils.exception         import DependencyNotFoundError
-from bpyutils import log
+from upyog.util._dict        import merge_dict
+from upyog.util.system   	import (touch)
+from upyog.util.error        import pretty_print_error
+from upyog.config			import environment
+from upyog.exception         import DependencyNotFoundError
+from upyog import log
 from {{ cookiecutter.slug }} 	import cli
-from bpyutils._compat		    import iteritems
+from upyog._compat		    import iteritems
 from {{ cookiecutter.slug }}.__attr__ import __name__
 
 logger   = log.get_logger(level = log.DEBUG)

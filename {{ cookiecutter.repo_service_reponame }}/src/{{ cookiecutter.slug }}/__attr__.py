@@ -70,7 +70,7 @@ path                        = dict()
 path["base"]                = pardir(__file__)
 path["version"]             = osp.join(path["base"], "VERSION")
 
-__name__                    = "{{ cookiecutter.name.lower().replace(' ', '-') }}"
+__name__                    = "{{ cookiecutter.name.replace(' ', '-') }}"
 __command__                 = "{{ cookiecutter.command }}"
 __version__                 = read(osp.join(pardir(__file__), "VERSION"))
 __build__                   = get_revision(pardir(__file__, 2), short = True, raise_err = False)

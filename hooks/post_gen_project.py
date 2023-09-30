@@ -39,11 +39,6 @@ if __name__ == "__main__":
 
     if "{{ cookiecutter.compat }}"  == "none":
         remove(osp.join(BASEDIR, "requirements", "compatibility.txt"))
-    
-    if "{{ cookiecutter.config }}" != "y":
-        remove(
-            osp.join(PROJDIR, "cache.py")
-        )
 
     if "github" not in "{{ cookiecutter.repo_service }}":
         remove(osp.join(BASEDIR, ".github"), recursive = True)

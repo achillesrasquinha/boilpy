@@ -1,5 +1,5 @@
 {% if cookiecutter.cli == "click" %}click
 click-completion
 click-didyoumean{% endif %}
-bpyutils
+upyog
 {% if cookiecutter.ml == "y" %}git+https://github.com/achillesrasquinha/deeply.git@develop#egg=deeply{% endif %}

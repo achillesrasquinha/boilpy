@@ -5,8 +5,8 @@ from {{ cookiecutter.slug }}.__attr__     import (
     __description__,
     __command__
 )
-from bpyutils.cli             import util as _cli
-from bpyutils.cli.parser      import get_base_parser
+from upyog.cli             import util as _cli
+from upyog.cli.parser      import get_base_parser
 
 _DESCRIPTION_JUMBOTRON = \
 """

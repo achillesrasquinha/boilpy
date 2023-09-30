@@ -4,7 +4,6 @@ default_context:
   slug: "{{ cookiecutter.slug }}"
   command: "{{ cookiecutter.command }}"
   cli: "{{ cookiecutter.cli }}"
-  config: "{{ cookiecutter.config }}"
   compat: "{{ cookiecutter.compat }}"
   jupyter: "{{ cookiecutter.jupyter }}"
   sqlite: "{{ cookiecutter.sqlite }}"

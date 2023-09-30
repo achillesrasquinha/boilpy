@@ -1,8 +1,8 @@
 # imports - module imports
-from bpyutils.cli.util     import *
+from upyog.cli.util     import *
 from {{ cookiecutter.slug }}.cli.parser import get_args
-from bpyutils.util._dict   import merge_dict
-from bpyutils.util.types   import get_function_arguments
+from upyog.util._dict   import merge_dict
+from upyog.util.types   import get_function_arguments
 
 def command(fn):
     args    = get_args()
