@@ -1,4 +1,4 @@
-from bpyutils.api import BaseAPI
+from upyog.api import BaseAPI
 
 class Client(BaseAPI):
     pass

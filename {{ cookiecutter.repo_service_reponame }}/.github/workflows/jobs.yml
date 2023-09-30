@@ -38,4 +38,4 @@ jobs:
           python setup.py develop
       - name: Run Jobs
         run: |
-          bpyutils --run-jobs {{ cookiecutter.slug }}.jobs
+          upyog --run-jobs {{ cookiecutter.slug }}.jobs

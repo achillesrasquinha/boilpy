@@ -1,14 +1,11 @@
 from __future__ import absolute_import
 
-import os.path as osp
+import os.path as osp, upyog as upy
 
 from {{ cookiecutter.slug }}.__attr__ import __name__ as NAME
 
-from bpyutils.config      import get_config_path
-from bpyutils.util.system import pardir
-
 PATH = dict()
 
-PATH["BASE"]  = pardir(__file__, 1)
+PATH["BASE"]  = upy.pardir(__file__, 1)
 PATH["DATA"]  = osp.join(PATH["BASE"], "data")
-PATH["CACHE"] = get_config_path(NAME)
+PATH["CACHE"] = upy.get_config_path(NAME)

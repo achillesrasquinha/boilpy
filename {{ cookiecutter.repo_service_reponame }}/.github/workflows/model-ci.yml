@@ -23,4 +23,4 @@ jobs:
           python setup.py develop
       - name: Run Pipeline
         run: |
-          bpyutils --run-ml {{ cookiecutter.slug }}
+          upyog --run-ml {{ cookiecutter.slug }}

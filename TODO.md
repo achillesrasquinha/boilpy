@@ -10,6 +10,6 @@
 - [ ] Add lint to Makefile
 - [ ] Remove _compat from module
 - [x] Check if docker/files exists.
-- [ ] Check `SRCDIR` within docs (bpyutils)
+- [ ] Check `SRCDIR` within docs (upyog)
 - [ ] Check LICENSE formatting in Markdown.
 - [x] Add tox wildcard.

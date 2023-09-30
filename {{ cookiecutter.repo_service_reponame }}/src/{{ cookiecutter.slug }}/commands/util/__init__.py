@@ -1,6 +1,6 @@
 {% if cookiecutter.cli == "click" %}
-from bpyutils.util.array   import sequencify
-from bpyutils.util.imports import import_handler
+from upyog.util.array   import sequencify
+from upyog.util.imports import import_handler
 {% endif %}
 
 # imports - module imports

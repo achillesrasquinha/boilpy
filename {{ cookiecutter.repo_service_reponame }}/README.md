@@ -13,14 +13,14 @@
     <a href="https://coveralls.io/github/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}">
       <img src="https://img.shields.io/coveralls/github/{{ cookiecutter.repo_service_username }}/{{ cookiecutter.repo_service_reponame }}.svg?style=flat-square">
     </a>
-    <a href="https://pypi.org/project/{{ cookiecutter.name.lower().replace(' ', '-') }}/">
-      <img src="https://img.shields.io/pypi/v/{{ cookiecutter.name.lower().replace(' ', '-') }}.svg?style=flat-square">
+    <a href="https://pypi.org/project/{{ cookiecutter.name.replace(' ', '-') }}/">
+      <img src="https://img.shields.io/pypi/v/{{ cookiecutter.name.replace(' ', '-') }}.svg?style=flat-square">
     </a>
-    <a href="https://pypi.org/project/{{ cookiecutter.name.lower().replace(' ', '-') }}/">
-      <img src="https://img.shields.io/pypi/l/{{ cookiecutter.name.lower().replace(' ', '-') }}.svg?style=flat-square">
+    <a href="https://pypi.org/project/{{ cookiecutter.name.replace(' ', '-') }}/">
+      <img src="https://img.shields.io/pypi/l/{{ cookiecutter.name.replace(' ', '-') }}.svg?style=flat-square">
     </a>
-    <a href="https://pypi.org/project/{{ cookiecutter.name.lower().replace(' ', '-') }}/">
-		  <img src="https://img.shields.io/pypi/pyversions/{{ cookiecutter.name.lower().replace(' ', '-') }}.svg?style=flat-square">
+    <a href="https://pypi.org/project/{{ cookiecutter.name.replace(' ', '-') }}/">
+		  <img src="https://img.shields.io/pypi/pyversions/{{ cookiecutter.name.replace(' ', '-') }}.svg?style=flat-square">
 	  </a>
     <a href="https://git.io/boilpy">
       <img src="https://img.shields.io/badge/made%20with-boilpy-red.svg?style=flat-square">
@@ -42,7 +42,7 @@
 ### Quick Start
 
 ```shell
-$ pip install {{ cookiecutter.name.lower().replace(' ', '-') }}
+$ pip install {{ cookiecutter.name.replace(' ', '-') }}
 ```
 
 Check out [installation](docs/source/install.rst) for more details.
