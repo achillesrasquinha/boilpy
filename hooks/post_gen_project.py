@@ -93,17 +93,23 @@ if __name__ == "__main__":
             osp.join(BASEDIR, "msg")
         , recursive = True, raise_err = False)
 
-    token = getenv("GITHUB_TOKEN", prefix = None, raise_err = False)
-    if token:
-        github_username = "{{ cookiecutter.repo_service_username }}"
-        github_reponame = "{{ cookiecutter.repo_service_reponame }}"
+    error = False
 
-        github = GitHub(token = token)
-        github.repo(github_username, github_reponame, create = True,
-            description = "{{ cookiecutter.description }}",
-            homepage    = "{{ cookiecutter.url }}"
-        )
+    try:
+        token = getenv("GITHUB_TOKEN", prefix = None, raise_err = False)
+        if token:
+            github_username = "{{ cookiecutter.repo_service_username }}"
+            github_reponame = "{{ cookiecutter.repo_service_reponame }}"
+
+            github = GitHub(token = token)
+            github.repo(github_username, github_reponame, create = True,
+                description = "{{ cookiecutter.description }}",
+                homepage    = "{{ cookiecutter.url }}"
+            )
+    except Exception as e:
+        print(f"Error creating GitHub repository: {e}")
+        error = True
 
     if not osp.exists(osp.join(BASEDIR, ".git")):
         setup_git_repo(BASEDIR, remote = remote, commit = True,
-            push = token, git_username = GIT_USERNAME, git_email = GIT_EMAIL)
+            push = token and not error, git_username = GIT_USERNAME, git_email = GIT_EMAIL)
